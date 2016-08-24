@@ -1,1 +1,4 @@
 *.class
+NoRepeatKeyLog.txt
+RepeatedKeyLog.txt
+log.txt

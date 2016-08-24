@@ -2,36 +2,103 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31c7b5c4-80f5-4258-ae8c-55cd0c3e87d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Hola.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/Executor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/change_log.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/Controller.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/HumanController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/KeyBoardInput.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/AggressiveGhosts.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/Legacy.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/Legacy2TheReckoning.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/NearestPillPacMan.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/NearestPillPacManVS.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/RandomGhosts.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/RandomNonRevPacMan.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/RandomPacMan.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/StarterGhosts.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/StarterPacMan.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/copyright.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/entries/ghosts/MyGhosts.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/entries/pacman/MyPacMan.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/Constants.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/Game.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/GameView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/AStar.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/Ghost.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/Maze.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/Node.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/PacMan.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/PathsCache.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/util/IO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/util/Log.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/distances/da" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/distances/db" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/distances/dc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/distances/dd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/blinky-down-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/blinky-down-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/blinky-left-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/blinky-left-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/blinky-right-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/blinky-right-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/blinky-up-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/blinky-up-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/edible-ghost-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/edible-ghost-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/edible-ghost-blink-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/edible-ghost-blink-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/inky-down-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/inky-down-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/inky-left-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/inky-left-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/inky-right-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/inky-right-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/inky-up-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/inky-up-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/maze-a.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/maze-b.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/maze-c.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/maze-d.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-down-closed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-down-normal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-down-open.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-left-closed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-left-normal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-left-open.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-right-closed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-right-normal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-right-open.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-up-closed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-up-normal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/mspacman-up-open.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/pinky-down-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/pinky-down-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/pinky-left-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/pinky-left-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/pinky-right-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/pinky-right-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/pinky-up-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/pinky-up-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/sue-down-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/sue-down-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/sue-left-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/sue-left-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/sue-right-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/sue-right-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/sue-up-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/sue-up-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/mazes/a.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/mazes/b.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/mazes/c.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/mazes/d.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/mazes/readme.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MsPacman/MsPacmanExample/pacman/change_log.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MsPacman/MsPacmanExample/pacman/copyright.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/Executor.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/change_log.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/Controller.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/HumanController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/KeyBoardInput.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/AggressiveGhosts.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/Legacy.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/Legacy2TheReckoning.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/NearestPillPacMan.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/NearestPillPacManVS.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/RandomGhosts.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/RandomNonRevPacMan.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/RandomPacMan.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/StarterGhosts.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/controllers/examples/StarterPacMan.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/copyright.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/entries/ghosts/MyGhosts.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/entries/pacman/MyPacMan.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/Constants.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/Game.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/GameView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/AStar.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/Ghost.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/Maze.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/Node.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/PacMan.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/internal/PathsCache.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/util/IO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/game/util/Log.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/starter_packages/MyGhosts.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MsPacmanExample/pacman/starter_packages/MyPacMan.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Hola.java" afterPath="$PROJECT_DIR$/src/Hola.java" />
     </list>
     <ignored path="MsPacman.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,11 +120,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Executor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MsPacmanExample/pacman/Executor.java">
+      <file leaf-file-name="MsPacInterface.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pacman/MsPacInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="1649">
+              <caret line="106" column="12" selection-start-line="106" selection-start-column="12" selection-end-line="106" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,12 +135,87 @@
       <file leaf-file-name="Hola.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Hola.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="204">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleExtractor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pacman/SimpleExtractor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="799">
+              <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnectedSet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pacman/ConnectedSet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
               <folding>
-                <element signature="e#110#111#0" expanded="true" />
-                <element signature="e#158#159#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pacman/GameState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1105">
+              <caret line="71" column="37" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Agent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pacman/Agent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="697">
+              <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleDisplay.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pacman/SimpleDisplay.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PacMover.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pacman/PacMover.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="765">
+              <caret line="47" column="12" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LeftRight.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pacman/LeftRight.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -101,6 +243,18 @@
         <option value="$PROJECT_DIR$/src/PacmanExample/starter_packages/MyPacMan.java" />
         <option value="$PROJECT_DIR$/src/MsPacmanExample/pacman/starter_packages/MyPacMan.java" />
         <option value="$PROJECT_DIR$/src/MsPacmanExample/pacman/starter_packages/MyGhosts.java" />
+        <option value="$PROJECT_DIR$/src/pacman/IntStack.java" />
+        <option value="$PROJECT_DIR$/src/utilities/JEasyFrame.java" />
+        <option value="$PROJECT_DIR$/src/pacman/DirectionComponent.java" />
+        <option value="$PROJECT_DIR$/src/pacman/SimpleDisplay.java" />
+        <option value="$PROJECT_DIR$/src/pacman/TestMonitor.java" />
+        <option value="$PROJECT_DIR$/src/pacman/LeftRight.java" />
+        <option value="$PROJECT_DIR$/src/pacman/Agent.java" />
+        <option value="$PROJECT_DIR$/src/pacman/SimpleExtractor.java" />
+        <option value="$PROJECT_DIR$/src/pacman/ConnectedSet.java" />
+        <option value="$PROJECT_DIR$/src/pacman/GameState.java" />
+        <option value="$PROJECT_DIR$/src/pacman/MsPacInterface.java" />
+        <option value="$PROJECT_DIR$/src/pacman/PacMover.java" />
         <option value="$PROJECT_DIR$/src/Hola.java" />
       </list>
     </option>
@@ -142,7 +296,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -150,61 +306,32 @@
               <option name="myItemId" value="MsPacman" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="MsPacman" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MsPacman" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="MsPacman" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MsPacman" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MsPacman" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MsPacman" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pacman" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/maven/maven-ant-tasks-2.0.9.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="MsPacmanBase" />
       <recent name="MsPacmanExample" />
       <recent name="PacmanExample" />
     </key>
@@ -212,7 +339,7 @@
       <recent name="C:\Users\jccaleroe\Documents\SistemasInteligentes\MsPacman\src\MsPacmanExample\pacman" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HolaRun">
+  <component name="RunManager" selected="Application.Base">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -633,7 +760,22 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <configuration default="false" name="HolaRun" type="Application" factoryName="Application">
+    <configuration default="false" name="Base" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="pacman.MsPacInterface" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="MsPacman" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Hola" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Hola" />
       <option name="VM_PARAMETERS" value="" />
@@ -648,9 +790,9 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="RunExecutor" type="Application" factoryName="Application">
+    <configuration default="false" name="EasyFrame" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="MsPacmanExample.pacman.Executor" />
+      <option name="MAIN_CLASS_NAME" value="utilities.JEasyFrame" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -663,9 +805,26 @@
       <envs />
       <method />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Application.HolaRun" />
-      <item index="1" class="java.lang.String" itemvalue="Application.RunExecutor" />
+    <configuration default="false" name="Direction" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="pacman.DirectionComponent" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="MsPacman" />
+      <envs />
+      <method />
+    </configuration>
+    <list size="4">
+      <item index="0" class="java.lang.String" itemvalue="Application.Base" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Hola" />
+      <item index="2" class="java.lang.String" itemvalue="Application.EasyFrame" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Direction" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -683,15 +842,22 @@
       <updated>1471564369316</updated>
       <workItem from="1471564376625" duration="2142000" />
       <workItem from="1471566606996" duration="750000" />
+      <workItem from="1471659641798" duration="1795000" />
+      <workItem from="1471662210281" duration="1172000" />
+      <workItem from="1471702520094" duration="19000" />
+      <workItem from="1471702697468" duration="10666000" />
+      <workItem from="1471993905405" duration="2906000" />
+      <workItem from="1472053959002" duration="7347000" />
+      <workItem from="1472061417547" duration="205000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2892000" />
+    <option name="totallyTimeSpent" value="27002000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -700,17 +866,17 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2917981" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2489019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39905363" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -740,13 +906,57 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/pacman/PacMover.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="52" column="23" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utilities/JEasyFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utilities/JEasyFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MsPacmanExample/pacman/Executor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hola.java" />
+    <entry file="file://$PROJECT_DIR$/src/pacman/MsPacInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MsPacmanExample/pacman/Executor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hola.java" />
     <entry file="file://$PROJECT_DIR$/src/MsPacmanExample/pacman/Executor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -754,7 +964,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,7 +971,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -773,7 +981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -781,7 +988,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -799,10 +1005,208 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/Window.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1028" column="16" selection-start-line="1028" selection-start-column="16" selection-end-line="1028" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/images/blinky-down-1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/images/blinky-down-2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/images/blinky-left-1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/images/sue-up-2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/images/mspacman-right-open.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/newdawn/slick/opengl/renderer/SGL.java" />
+    <entry file="file://$PROJECT_DIR$/src/org/newdawn/slick/Graphics.java" />
+    <entry file="file://$PROJECT_DIR$/src/mspacman/Act4Mode.java" />
+    <entry file="file://$PROJECT_DIR$/src/mspacman/Main.java" />
     <entry file="file://$PROJECT_DIR$/src/MsPacmanExample/pacman/Executor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="-5419">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MsPacmanExample/pacman/game/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6184">
+          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/Component.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="3311" column="16" selection-start-line="3311" selection-start-column="16" selection-end-line="3311" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/IntStack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="56" column="1" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/SimpleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/Drawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/Robot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3094">
+          <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utilities/JEasyFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="101" column="9" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/TestMonitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/SimpleDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/games/math/Vector2d.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/ConnectedSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/GameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="71" column="37" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/PacAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/DirectionComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/LeftRight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/PacMover.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="47" column="12" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/SimpleExtractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="140" column="6" selection-start-line="140" selection-start-column="6" selection-end-line="140" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pacman/MsPacInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1649">
+          <caret line="106" column="12" selection-start-line="106" selection-start-column="12" selection-end-line="106" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -811,14 +1215,99 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Hola.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#110#111#0" expanded="true" />
-            <element signature="e#158#159#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>MsPacman</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>ibxm</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
