@@ -40,7 +40,7 @@ public class SimpleDisplay extends JComponent {
             // ensure only one thread gets through this at any one time
             synchronized (SimpleDisplay.class) {
                 for (Drawable d : objects) {
-                    // System.out.println("Trying to draw " + d + " on " + g);
+                    //System.out.println("Trying to draw " + d + " on " + g);
                     d.draw(g, w, h);
                 }
             }
@@ -48,12 +48,12 @@ public class SimpleDisplay extends JComponent {
     }
 
     public void updateObjects(ArrayList<Drawable> objects) {
-        // System.out.println("Objects: " + objects);
+        //System.out.println("Objects: " + objects);
         synchronized (SimpleDisplay.class) {
             this.objects = objects;
         }
         repaint();
-        // draw(getGraphics());
+        //draw(getGraphics());
     }
 
     public Dimension getPreferredSize() {

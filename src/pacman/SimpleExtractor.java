@@ -1,5 +1,6 @@
 package pacman;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -38,7 +39,7 @@ public class SimpleExtractor {
         ArrayList<Drawable> objects = new ArrayList<>();
 
         for (int p = 0; p < pix.length; p++) {
-            if ((pix[p] & 0xFFFFFF) != BG && colors.contains(pix[p])) {
+            if (colors.contains(pix[p])) {
                 ConnectedSet cs = consume(pix, p, pix[p]);
                 objects.add(cs);
                 gs.update(cs, pix);
@@ -60,7 +61,7 @@ public class SimpleExtractor {
             p = stack.pop();
             if (pix[p] == fg) {
                 // System.out.println(cx + " : " + cy + " : " + pix[p] );
-                // System.in.read();
+                //System.in.read();
                 cs.add(p % w, p / w, p, pix[p]);
                 pix[p] = 0;
                 int cx = p % w;
