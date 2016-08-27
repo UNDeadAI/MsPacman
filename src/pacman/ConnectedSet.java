@@ -42,15 +42,17 @@ public class ConnectedSet implements Drawable {
         // int div = 1;
         validate();
         g.setColor(c);
-        if (ghostLike()) {
+        if (ghostLike())
             g.fillRect(xMin, yMin, width, height);
-            // System.out.println(width + " : " + height);
-        } else {
-            if (powerPill() || pill() && true) {
-                g.drawRect(xMin, yMin, width+1, height+1);
-            }
-        }
-        // g.fillRect(x, y, 1, 1);
+
+        else if (powerPill() || pill() && true)
+            g.fillRect(xMin, yMin, width+1, height+1);
+
+        else if (isCherricita())
+            g.fillRect(xMin, yMin, width, height);
+
+        else if (edible())
+            g.fillRect(xMin, yMin, width, height);
     }
 
     public void validate() {
@@ -65,7 +67,7 @@ public class ConnectedSet implements Drawable {
 
     public boolean ghostLike() {
         validate();
-        return ghostColor(fg) && width >= 10 && height >= 10;
+        return ghostColor(fg) && width >= 10 && height >= 10;                    //198 - 208
         // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
@@ -73,6 +75,11 @@ public class ConnectedSet implements Drawable {
         validate();
         return MsPacInterface.edible == fg && width >= 10 && height >= 10;
         // return width == 13 && height == 13; // fg == MsPacInterface.inky;
+    }
+
+    public boolean isCherricita(){
+        validate();
+        return MsPacInterface.cherricita == fg && height >= 3 && width >= 1;
     }
 
     public boolean ghostColor(int c) {
@@ -135,3 +142,5 @@ public class ConnectedSet implements Drawable {
         return x * x;
     }
 }
+
+//height 257 - 260

@@ -32,10 +32,10 @@ public class MsPacInterface {
     static int delay = 10;
     static boolean display = true;
 
-    int left = 488;
-    int top = 158;
-    public static int width = 373;
-    public static int height = 413;
+    int left = 571;
+    int top = 285;
+    public static int width = 224;
+    public static int height = 248;
     int[] pixels;
     Robot robot;
     SimpleExtractor se;
@@ -49,6 +49,8 @@ public class MsPacInterface {
     static int pacMan = -256;
     static int edible = -14408449;
     static int pill = -2434305;
+    static int cherricita = -7252651;
+    static int strawberricita = -16711936;
 
     static HashSet<Integer> colors = new HashSet<Integer>();
 
@@ -60,6 +62,8 @@ public class MsPacInterface {
         colors.add(pacMan);
         colors.add(edible);
         colors.add(pill);
+        colors.add(cherricita);
+        colors.add(strawberricita);
     }
 
     public MsPacInterface() throws Exception {
@@ -85,14 +89,14 @@ public class MsPacInterface {
 
     public static void main(String[] args) throws Exception {
         MsPacInterface ms = new MsPacInterface();
-        StatisticalSummary ss = new StatisticalSummary();
-        PacMover pm = new PacMover();
-        DirectionComponent dc = DirectionComponent.easyUse();
+        StatisticalSummary ss = new StatisticalSummary();       //Statistical Data
+        PacMover pm = new PacMover();                           //Pacman mover
+        DirectionComponent dc = DirectionComponent.easyUse();   //
         PacAgent pa = new LeftRight();
 
         TestMonitor tm = new TestMonitor();
         while(true) {
-            ElapsedTimer t = new ElapsedTimer();
+            ElapsedTimer t = new ElapsedTimer();                //Report of elapsed time
 
             int[] pix = ms.getPixels();
 

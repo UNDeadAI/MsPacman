@@ -29,8 +29,8 @@ public class DirectionComponent extends JComponent {
 
     public static DirectionComponent easyUse() {
         DirectionComponent dc = new DirectionComponent();
-        JPanel p = new JPanel();
-        p.add(dc);
+        JPanel p = new JPanel();                                //Create a JPanel
+        p.add(dc);                                              //Add Direction Component to the Panel
         JEasyFrame f = new JEasyFrame(p, "Test", true);
         f.setLocation(400, 50);
         return dc;

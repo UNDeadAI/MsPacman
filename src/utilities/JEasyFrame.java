@@ -5,12 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class JEasyFrame extends JFrame {
-    public Component comp;
+    public Component comp;                              //object having a graphical representation that can be displayed on the screen
     public boolean exitOnClose;
     public static boolean EXIT_DEFAULT = false;
     public static String DEFAULT_TITLE = "Closeable Frame";
 
-    static int nFrames = 1000; // used to displace successive frames
+    static int nFrames = 1000;              // used to displace successive frames
     static int maxCount = 20;
     static int perFrame = 15;
 
@@ -25,11 +25,11 @@ public class JEasyFrame extends JFrame {
 
     public JEasyFrame() {
         this(DEFAULT_TITLE, EXIT_DEFAULT);
-    }
+    }       //Frame with default title and exit
 
     public JEasyFrame(String title) {
         this(title, EXIT_DEFAULT);
-    }
+    }   //
 
     public JEasyFrame(String title, boolean exit) {
         super(title);
