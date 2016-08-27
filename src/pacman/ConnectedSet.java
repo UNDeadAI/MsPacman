@@ -1,8 +1,10 @@
 package pacman;
 
+import java.util.ArrayList;
 import java.awt.*;
 
 public class ConnectedSet implements Drawable {
+    // private ArrayList pixels;
     int x, y;
     int width, height;
     int fg; // the value of the FG pixels
@@ -14,6 +16,7 @@ public class ConnectedSet implements Drawable {
     boolean valid = false;
 
     public ConnectedSet(int x, int y, int fg) {
+        // pixels = new ArrayList();
         this.x = x;
         this.y = y;
         xMin = x;
@@ -22,6 +25,7 @@ public class ConnectedSet implements Drawable {
         yMax = y;
         this.fg = fg;
         c = new Color((fg & 0xFF0000) >> 16, (fg & 0xFF00) >> 8, (fg & 0xFF));
+        // System.out.println("Color: " + c + " : " + fg);
     }
 
     public void add(int px, int py, int pos, int val) {
@@ -35,11 +39,11 @@ public class ConnectedSet implements Drawable {
     }
 
     public void draw(Graphics g, int w, int h) {
+        // int div = 1;
         validate();
         g.setColor(c);
         if (ghostLike())
             g.fillRect(xMin, yMin, width, height);
-<<<<<<< HEAD
 
         else if (powerPill() || pill() && true)
             g.fillRect(xMin, yMin, width+1, height+1);
@@ -48,11 +52,6 @@ public class ConnectedSet implements Drawable {
             g.fillRect(xMin, yMin, width, height);
 
         else if (edible())
-=======
-        else if(powerPill() || pill())
-            g.drawRect(xMin, yMin, width+1, height+1);
-        else if(edible())
->>>>>>> Camilo
             g.fillRect(xMin, yMin, width, height);
     }
 
@@ -60,6 +59,8 @@ public class ConnectedSet implements Drawable {
         if (!valid) {
             width = xMax - xMin;
             height = yMax - yMin;
+            // px = xMin + (xMax - xMin) / div;
+            // py = yMin + (yMax - yMin) / div;
             valid = true;
         }
     }
@@ -70,7 +71,6 @@ public class ConnectedSet implements Drawable {
         // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
-<<<<<<< HEAD
     public boolean edible() {
         validate();
         return MsPacInterface.edible == fg && width >= 10 && height >= 10;
@@ -82,19 +82,11 @@ public class ConnectedSet implements Drawable {
         return MsPacInterface.cherricita == fg && height >= 3 && width >= 1;
     }
 
-=======
->>>>>>> Camilo
     public boolean ghostColor(int c) {
         return c == MsPacInterface.blinky ||
                 c == MsPacInterface.pinky ||
                 c == MsPacInterface.inky ||
                 c == MsPacInterface.sue;
-    }
-
-    public boolean edible() {
-        validate();
-        return MsPacInterface.edible == fg && width >= 10 && height >= 10;
-        // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
     public boolean isPacMan() {
@@ -105,19 +97,13 @@ public class ConnectedSet implements Drawable {
 
     public boolean pill() {
         validate();
-        //return between(width, 2, 3) && between(height, 2, 3);
-        return width == 1 && height == 1 && fg == MsPacInterface.pill;
+        return width == 1 && height == 1 && fg == MsPacInterface.pill; // between(width, 2, 3) && between(height, 2, 3);
     }
 
     public boolean powerPill() {
         validate();
-        return width == 7 && height == 7 && fg == MsPacInterface.pill;
-        //return between(width, 2, 7) && between(height, 2, 7);
+        return width == 7 && height == 7; // between(width, 2, 3) && between(height, 2, 3);
     }
-//    public boolean isCherry(){
-//        validate();
-//        return fg == MsPacInterface.cherry && width <= 3 && height  <= 4;
-//    }
 
     public static boolean between(int x, int low, int high) {
         return x >= low && x <= high;
@@ -131,7 +117,9 @@ public class ConnectedSet implements Drawable {
         return yMin + (yMax - yMin) / 2;
     }
 
-    public void rescale(double fac) {}
+    public void rescale(double fac) {
+        // do nothing
+    }
 
     public int hashCode() {
         return pTot;

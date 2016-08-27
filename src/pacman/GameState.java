@@ -38,7 +38,7 @@ public class GameState implements Drawable {
     static int nFeatures = 13;
     double[] vec;
 
-    static HashMap<Integer,Integer> ghostLut = new HashMap<>();
+    static HashMap<Integer,Integer> ghostLut = new HashMap<Integer,Integer>();
 
     public GameState() {
         agent = new Agent();
@@ -63,10 +63,8 @@ public class GameState implements Drawable {
             agent.update(cs, pix);
         else if (cs.ghostLike()) {
             // update the state of the ghost distance
-            //System.out.println("Un fantasma");
-        } else if (cs.pill() || cs.powerPill()) {
+        } else if (cs.pill()) {
             // keep track of the position of the closest pill
-            //System.out.println("Una galleta");
             tmp.set(cs.x, cs.y);
             if (closestPill == null)
                 closestPill = new Vector2d(tmp);
@@ -76,6 +74,7 @@ public class GameState implements Drawable {
     }
 
     public void draw(Graphics gg, int w, int h) {
+        //To change body of implemented methods use File | Settings | File Templates.
         Graphics2D g = (Graphics2D) gg;
 
         if (agent != null) {

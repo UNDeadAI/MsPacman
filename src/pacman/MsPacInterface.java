@@ -6,7 +6,6 @@ import utilities.ElapsedTimer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -42,6 +41,7 @@ public class MsPacInterface {
     SimpleExtractor se;
     SimpleDisplay sd;
 
+    // these are the integers corresponding to the pixel colours for each game object
     static int blinky = -65536;
     static int pinky = -18689;
     static int inky = -16711681;
@@ -49,13 +49,8 @@ public class MsPacInterface {
     static int pacMan = -256;
     static int edible = -14408449;
     static int pill = -2434305;
-<<<<<<< HEAD
     static int cherricita = -7252651;
     static int strawberricita = -16711936;
-=======
-    //static int cherry = -7252651;
-    //static int strawberry = -16711936;
->>>>>>> Camilo
 
     static HashSet<Integer> colors = new HashSet<Integer>();
 
@@ -82,6 +77,7 @@ public class MsPacInterface {
     public void analyseComponents(int[] pix) {
         se.gs.reset();
         ArrayList<Drawable> al = se.consume(pix, colors);
+        // System.out.println("Components " + al);
         if (display) sd.updateObjects(al);
     }
 
@@ -93,37 +89,28 @@ public class MsPacInterface {
 
     public static void main(String[] args) throws Exception {
         MsPacInterface ms = new MsPacInterface();
-<<<<<<< HEAD
         StatisticalSummary ss = new StatisticalSummary();       //Statistical Data
         PacMover pm = new PacMover();                           //Pacman mover
         DirectionComponent dc = DirectionComponent.easyUse();   //
-=======
-        //StatisticalSummary ss = new StatisticalSummary();
-        PacMover pm = new PacMover();
-        DirectionComponent dc = DirectionComponent.easyUse();
->>>>>>> Camilo
         PacAgent pa = new LeftRight();
 
         TestMonitor tm = new TestMonitor();
         while(true) {
-<<<<<<< HEAD
             ElapsedTimer t = new ElapsedTimer();                //Report of elapsed time
 
-=======
-            //ElapsedTimer t = new ElapsedTimer();
->>>>>>> Camilo
             int[] pix = ms.getPixels();
-            ms.analyseComponents(pix);
-            //ss.add(t.elapsed());
 
-            //int action = ms.se.gs.agent.move(ms.se.gs);
+            ms.analyseComponents(pix);
+            ss.add(t.elapsed());
+            //int action = ms.ce.gs.agent.move(ms.ce.gs);
             int action = pa.move(ms.se.gs);
-            //System.out.println(action);
+            System.out.println(action);
             pm.move(action);
-            //tm.log(action, ms.se.gs);
+            tm.log(action, ms.se.gs);
             if (display) dc.update(action);
             Thread.sleep(delay);
             // pm.randMove();
         }
+        // System.out.println(ss);
     }
 }
