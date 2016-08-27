@@ -6,13 +6,6 @@ import java.awt.*;
 
 import games.math.Vector2d;
 
-/**
- * User: Simon
- * Date: 05-Mar-2007
- * Time: 00:21:34
- * Agent class
- */
-
 public class Agent implements Drawable, PacAgent, Constants {
     int x, y;
     int w, h;
@@ -29,7 +22,11 @@ public class Agent implements Drawable, PacAgent, Constants {
 
     static int pill = MsPacInterface.pill & 0xFFFFFF;
     static int pacMan = MsPacInterface.pacMan & 0xFFFFFF;
-    static int lips = MsPacInterface.blinky & 0xFFFFFF;
+    static int blinky = MsPacInterface.blinky & 0xFFFFFF;
+    static int pinky = MsPacInterface.pinky & 0xFFFFFF;
+    static int inky = MsPacInterface.inky & 0xFFFFFF;
+    static int sue = MsPacInterface.sue & 0xFFFFFF;
+    static int edible = MsPacInterface.edible & 0xFFFFFF;
 
     // d is the distance in each direction to the nearest wall
     int[] d;
@@ -46,11 +43,6 @@ public class Agent implements Drawable, PacAgent, Constants {
         System.out.println("new agent");
     }
 
-    public Agent(ConnectedSet cs, int[] pix) {
-        this();
-        update(cs, pix);
-    }
-
     public void update(ConnectedSet cs, int[] pix) {
         cs.validate();
         w = cs.width;
@@ -60,19 +52,16 @@ public class Agent implements Drawable, PacAgent, Constants {
         y = cs.yMin + h / 2;
         cur.set(x, y);
         setDir(prev, cur);
+        //System.out.println(x + " : " + y);
         // now check lines
-        // System.out.println(cur + " : " + x + " : " + y);
-        for (int i = 0; i < dirs.length; i++) {
+        for (int i = 0; i < dirs.length; i++)
             d[i] = search(x + y * width, pix, dirs[i]);
-            // System.out.println(i + "\t " + d[i]);
-        }
         this.color = cs.c;
     }
 
     public void setDir(Vector2d prev, Vector2d cur) {
         tmp.set(cur);
         tmp.subtract(prev);
-        // System.out.println(tmp);
         if (tmp.equals(NEUTRAL)) currentDirection = NEUTRAL;
         if (tmp.scalarProduct(vUp) > 0) currentDirection = UP;
         if (tmp.scalarProduct(vRight) > 0) currentDirection = RIGHT;
@@ -85,10 +74,10 @@ public class Agent implements Drawable, PacAgent, Constants {
         // simple controller that tries to move towards the nearest power pill
         // set up a rogue value for the move, and a large value for the closest pill
         move = -1;
-        double best = 100000;
+        double best = 1000000;
         for (int i = 0; i < dirs.length; i++) {
             // why test if d[i]
-            if (d[i] > 12) {
+            if (d[i] >= 12) {
                 // set tmp vector to current postition of agent
                 tmp.set(cur);
                 // now add in the current direction - this sets the position
@@ -103,41 +92,38 @@ public class Agent implements Drawable, PacAgent, Constants {
                 }
             }
         }
-        if (move < 0) {
-            System.out.println("Move error: " + move);
+        //if (move < 0)
+            //System.out.println("Move error: " + move);
             // move = 3;
-        }
+
         move += 1;
         // System.out.println(move + " \t " + currentDirection);
-        if (move == currentDirection) {
-            // System.out.println("Already moving that way");
+        if (move == currentDirection)
+             //System.out.println("Already moving that way");
             return NEUTRAL;
-        } else {
+        else
             return move;
-        }
     }
 
     public double eval(Vector2d pos, GameState gs) {
-        if (gs.closestPill != null) {
+        if (gs.closestPill != null)
             return pos.dist(gs.closestPill);
-        } else {
+        else
             return 0;
-        }
     }
 
     private int search(int p, int[] pix, int delta) {
         int len = 0;
         int pp = pix[p] & 0xFFFFFF;
         try {
-            while (pp == 0 || pp == pacMan || pp == pill || pp == lips) {
+            while (pp == 0 || pp == pacMan || pp == pill || pp == blinky || pp == edible || pp == inky || pp == sue
+                    || pp == pinky) {
                 len++;
                 if (len > width) return width;
                 p += delta;
                 pp = pix[p] & 0xFFFFFF;
             }
-        } catch (Exception e) {
-        }
-        // System.out.println(pp);
+        } catch (Exception e) {}
         return len;
     }
 
