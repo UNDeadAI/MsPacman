@@ -30,7 +30,6 @@ public class SimpleExtractor {
         int size = 4 * w * h;
         stack = new IntStack(size);
         uniques = new HashSet();
-        // agent = new Agent();
         gs = new GameState();
     }
 
@@ -53,14 +52,11 @@ public class SimpleExtractor {
         ConnectedSet cs = new ConnectedSet(p % w, p / w, fg);
 
         stack.reset();
-        // int p = x + y * w;
         stack.push(p);
 
         while (!stack.isEmpty()) {
             p = stack.pop();
             if (pix[p] == fg) {
-                // System.out.println(cx + " : " + cy + " : " + pix[p] );
-                // System.in.read();
                 cs.add(p % w, p / w, p, pix[p]);
                 pix[p] = 0;
                 int cx = p % w;

@@ -5,7 +5,7 @@ import java.awt.*;
 public class ConnectedSet implements Drawable {
     int x, y;
     int width, height;
-    int fg; // the value of the FG pixels
+    int fg;
     int xMin, xMax, yMin, yMax;
     int pTot;
     int tot;

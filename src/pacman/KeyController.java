@@ -16,18 +16,14 @@ public class KeyController extends KeyAdapter implements Constants, PacAgent {
 
     public int getDirection() {
 
-        if (key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_DOWN)
             return DOWN;
-        }
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_UP)
             return UP;
-        }
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_RIGHT)
             return RIGHT;
-        }
-        if (key == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_LEFT)
             return LEFT;
-        }
         return NEUTRAL;
     }
 

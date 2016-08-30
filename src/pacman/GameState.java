@@ -61,9 +61,8 @@ public class GameState implements Drawable {
     public void update(ConnectedSet cs, int[] pix) {
         if (cs.isPacMan())
             agent.update(cs, pix);
-        else if (cs.ghostLike()) {
-            // update the state of the ghost distance
-        } else if (cs.pill()) {
+        else if (cs.ghostLike()) {}
+        else if (cs.pill()) {
             // keep track of the position of the closest pill
             tmp.set(cs.x, cs.y);
             if (closestPill == null)
@@ -77,9 +76,8 @@ public class GameState implements Drawable {
         //To change body of implemented methods use File | Settings | File Templates.
         Graphics2D g = (Graphics2D) gg;
 
-        if (agent != null) {
+        if (agent != null)
             agent.draw(g, w, h);
-        }
         if (closestPill != null && agent != null) {
             g.setStroke(stroke);
             g.setColor(Color.cyan);

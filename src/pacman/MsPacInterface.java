@@ -33,6 +33,10 @@ public class MsPacInterface {
     static int delay = 10;
     static boolean display = true;
 
+    //Mis top y left
+    //int left = 576;
+    //int top = 246;
+
     int left = 571;
     int top = 285;
     public static int width = 224;
@@ -42,13 +46,22 @@ public class MsPacInterface {
     SimpleExtractor se;
     SimpleDisplay sd;
 
-    static int blinky = -65536;
+//    Me toco usar el de CSharp estos son mis colores :v
+//    static int pinky = -18210;
+//    static int inky = -16711714;
+//    static int sue = -18361;
+//    static int edible = -14605858;
+//    static int pill = -2565892;
+
     static int pinky = -18689;
     static int inky = -16711681;
     static int sue = -18859;
-    static int pacMan = -256;
     static int edible = -14408449;
     static int pill = -2434305;
+
+    static int blinky = -65536;
+    static int pacMan = -256;
+
     //static int cherry = -7252651;
     //static int strawberry = -16711936;
 
@@ -89,7 +102,6 @@ public class MsPacInterface {
         //StatisticalSummary ss = new StatisticalSummary();
         PacMover pm = new PacMover();
         DirectionComponent dc = DirectionComponent.easyUse();
-        PacAgent pa = new LeftRight();
 
         TestMonitor tm = new TestMonitor();
         while(true) {
@@ -98,8 +110,8 @@ public class MsPacInterface {
             ms.analyseComponents(pix);
             //ss.add(t.elapsed());
 
-            //int action = ms.se.gs.agent.move(ms.se.gs);
-            int action = pa.move(ms.se.gs);
+            int action = ms.se.gs.agent.move(ms.se.gs);
+            //int action = pa.move(ms.se.gs);
             //System.out.println(action);
             pm.move(action);
             //tm.log(action, ms.se.gs);

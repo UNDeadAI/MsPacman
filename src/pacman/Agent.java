@@ -6,12 +6,6 @@ import java.awt.*;
 
 import games.math.Vector2d;
 
-/**
- * User: Simon
- * Date: 05-Mar-2007
- * Time: 00:21:34
- * Agent class
- */
 
 public class Agent implements Drawable, PacAgent, Constants {
     int x, y;
@@ -61,11 +55,8 @@ public class Agent implements Drawable, PacAgent, Constants {
         cur.set(x, y);
         setDir(prev, cur);
         // now check lines
-        // System.out.println(cur + " : " + x + " : " + y);
-        for (int i = 0; i < dirs.length; i++) {
+        for (int i = 0; i < dirs.length; i++)
             d[i] = search(x + y * width, pix, dirs[i]);
-            // System.out.println(i + "\t " + d[i]);
-        }
         this.color = cs.c;
     }
 
@@ -94,8 +85,6 @@ public class Agent implements Drawable, PacAgent, Constants {
                 // now add in the current direction - this sets the position
                 // to where the agent would be after taking the proposed action for one time step
                 tmp.add(vDirs[i]);
-                // System.out.println(i + "\t " + eval(tmp, gs));
-                // now call eval, and update
                 double curScore = eval(tmp, gs);
                 if (curScore < best) {
                     move = i;
@@ -103,26 +92,24 @@ public class Agent implements Drawable, PacAgent, Constants {
                 }
             }
         }
-        if (move < 0) {
-            System.out.println("Move error: " + move);
+        //if (move < 0)
+            //System.out.println("Move error: " + move);
             // move = 3;
-        }
+
         move += 1;
-        // System.out.println(move + " \t " + currentDirection);
-        if (move == currentDirection) {
+        if (move == currentDirection)
             // System.out.println("Already moving that way");
             return NEUTRAL;
-        } else {
+        else
             return move;
-        }
+
     }
 
     public double eval(Vector2d pos, GameState gs) {
-        if (gs.closestPill != null) {
+        if (gs.closestPill != null)
             return pos.dist(gs.closestPill);
-        } else {
+         else
             return 0;
-        }
     }
 
     private int search(int p, int[] pix, int delta) {
@@ -135,9 +122,7 @@ public class Agent implements Drawable, PacAgent, Constants {
                 p += delta;
                 pp = pix[p] & 0xFFFFFF;
             }
-        } catch (Exception e) {
-        }
-        // System.out.println(pp);
+        } catch (Exception e) {}
         return len;
     }
 
@@ -145,7 +130,6 @@ public class Agent implements Drawable, PacAgent, Constants {
         Graphics2D g = (Graphics2D) gg;
         g.setColor(color);
         g.fillRect(x - w / 2, y - h / 2, w, h);
-        // now the four lines
         g.setColor(Color.green);
         g.drawLine(x, y, x, y - d[0]);
         g.drawLine(x, y, x + d[1], y);
