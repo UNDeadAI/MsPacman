@@ -39,9 +39,11 @@ public class ConnectedSet implements Drawable {
         g.setColor(c);
         if (ghostLike())
             g.fillRect(xMin, yMin, width, height);
-        else if(powerPill() || pill())
+        else if(isPowerPill() || isPill())
             g.drawRect(xMin, yMin, width+1, height+1);
-        else if(edible())
+        else if(isEdible())
+            g.fillRect(xMin, yMin, width, height);
+        else
             g.fillRect(xMin, yMin, width, height);
     }
 
@@ -55,18 +57,29 @@ public class ConnectedSet implements Drawable {
 
     public boolean ghostLike() {
         validate();
-        return ghostColor(fg) && width >= 10 && height >= 10;
+        if(width >= 10 && height >= 10){
+            if(fg == MsPacInterface.blinky){
+                GameState.isBlinkyEdible = false;
+                return true;
+            }
+            if(fg == MsPacInterface.pinky){
+                GameState.isPinkyEdible = false;
+                return true;
+            }
+            if(fg == MsPacInterface.inky){
+                GameState.isInkyEdible = false;
+                return true;
+            }
+            if(fg == MsPacInterface.sue){
+                GameState.isSueEdible = false;
+                return true;
+            }
+        }
+        return false;
         // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
-    public boolean ghostColor(int c) {
-        return c == MsPacInterface.blinky ||
-                c == MsPacInterface.pinky ||
-                c == MsPacInterface.inky ||
-                c == MsPacInterface.sue;
-    }
-
-    public boolean edible() {
+    public boolean isEdible() {
         validate();
         return MsPacInterface.edible == fg && width >= 10 && height >= 10;
         // return width == 13 && height == 13; // fg == MsPacInterface.inky;
@@ -78,13 +91,13 @@ public class ConnectedSet implements Drawable {
         // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
-    public boolean pill() {
+    public boolean isPill() {
         validate();
         //return between(width, 2, 3) && between(height, 2, 3);
         return width == 1 && height == 1 && fg == MsPacInterface.pill;
     }
 
-    public boolean powerPill() {
+    public boolean isPowerPill() {
         validate();
         return width == 7 && height == 7 && fg == MsPacInterface.pill;
         //return between(width, 2, 7) && between(height, 2, 7);
