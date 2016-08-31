@@ -130,42 +130,43 @@ public class Agent implements Drawable, PacAgent, Constants {
             }
         }
         //Utility
-        if(gs.closestEdible != null)
-            move = moveToEdible;
-        else {
-            tmp.set(cur);
-            if (moveToPill != -1) tmp.add(vDirs[moveToPill]);
-            aux = closestGhostDistance(tmp, gs);
-            if (aux > 24 || aux > closestGhostDistance(cur, gs)) {
-                if (closestPowerPillDistance(tmp, gs) < 8)
-                    move = -1;
-                else
-                    move = moveToPill;
-            } else {
-                tmp.set(cur);
-                if (moveToPowerPill != -1) tmp.add(vDirs[moveToPowerPill]);
-
-                if (closestPowerPillDistance < 8 && closestGhostDistance(tmp, gs) > 24)
-                    move = -1;
-                else if (closestGhostDistance(tmp, gs) < 24)
-                    move = moveToPowerPill;
-                else if (closestPowerPillDistance < closestGhostDistance(tmp, gs))
-                    move = moveToPowerPill;
-                else
-                    move = moveAway;
-            }
-        }
+//        if(gs.closestEdible != null)
+//            move = moveToEdible;
+//        else {
+//            tmp.set(cur);
+//            if (moveToPill != -1) tmp.add(vDirs[moveToPill]);
+//            aux = closestGhostDistance(tmp, gs);
+//            if (aux > 24 || aux > closestGhostDistance(cur, gs)) {
+//                if (closestPowerPillDistance(tmp, gs) < 8)
+//                    move = -1;
+//                else
+//                    move = moveToPill;
+//            } else {
+//                tmp.set(cur);
+//                if (moveToPowerPill != -1) tmp.add(vDirs[moveToPowerPill]);
+//
+//                if (closestPowerPillDistance < 8 && closestGhostDistance(tmp, gs) > 24)
+//                    move = -1;
+//                else if (closestGhostDistance(tmp, gs) < 24)
+//                    move = moveToPowerPill;
+//                else if (closestPowerPillDistance < closestGhostDistance(tmp, gs))
+//                    move = moveToPowerPill;
+//                else
+//                    move = moveAway;
+//            }
+//        }
 
         //Escape from ghosts
 //        tmp.set(cur);
 //            if (moveAway != -1) tmp.add(vDirs[moveAway]);
 //        if(closestGhostDistance(tmp, gs) < 224)
-//            move = moveAway;
+            move = moveAway;
 
         //move to the closest POwerPill
         //move = moveToPowerPill;
 
         move += 1;
+        System.out.println(move);
         if (move == currentDirection)
             return NEUTRAL;
         else

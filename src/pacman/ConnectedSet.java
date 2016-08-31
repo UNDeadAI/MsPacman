@@ -37,9 +37,7 @@ public class ConnectedSet implements Drawable {
     public void draw(Graphics g, int w, int h) {
         validate();
         g.setColor(c);
-        if (ghostLike())
-            g.fillRect(xMin, yMin, width, height);
-        else if(isPowerPill() || isPill())
+        if(isPowerPill() || isPill())
             g.drawRect(xMin, yMin, width+1, height+1);
         else if(isEdible())
             g.fillRect(xMin, yMin, width, height);
@@ -55,26 +53,43 @@ public class ConnectedSet implements Drawable {
         }
     }
 
-    public boolean ghostLike() {
+    public boolean isPinky(){
         validate();
-        if(width >= 10 && height >= 10){
-            if(fg == MsPacInterface.blinky){
-                GameState.isBlinkyEdible = false;
-                return true;
-            }
+        if(width >= 10 && height >= 10)
             if(fg == MsPacInterface.pinky){
                 GameState.isPinkyEdible = false;
                 return true;
             }
+            return false;
+    }
+
+    public boolean isBlinky() {
+        validate();
+        if(width >= 10 && height >= 10)
+            if(fg == MsPacInterface.blinky){
+                GameState.isBlinkyEdible = false;
+                return true;
+            }
+            return false;
+    }
+
+    public boolean isInky() {
+        validate();
+        if(width >= 10 && height >= 10)
             if(fg == MsPacInterface.inky){
                 GameState.isInkyEdible = false;
                 return true;
             }
+            return false;
+    }
+
+    public boolean isSue() {
+        validate();
+        if(width >= 10 && height >= 10)
             if(fg == MsPacInterface.sue){
                 GameState.isSueEdible = false;
                 return true;
             }
-        }
         return false;
         // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }

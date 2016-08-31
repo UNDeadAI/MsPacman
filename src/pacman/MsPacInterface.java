@@ -14,11 +14,11 @@ public class MsPacInterface {
     static boolean display = true;
 
     //Mis top y left
-    //int left = 576;
-    //int top = 246;
+    int left = 576;
+    int top = 246;
 
-    int left = 571;
-    int top = 285;
+    //int left = 571;
+    //int top = 285;
     public static int width = 224;
     public static int height = 248;
     int[] pixels;
@@ -27,17 +27,17 @@ public class MsPacInterface {
     SimpleDisplay sd;
 
 //  CSharp app colors
-//    static int pinky = -18210;
-//    static int inky = -16711714;
-//    static int sue = -18361;
-//    static int edible = -14605858;
-//    static int pill = -2565892;
+    static int pinky = -18210;
+    static int inky = -16711714;
+    static int sue = -18361;
+    static int edible = -14605858;
+    static int pill = -2565892;
 
-    static int pinky = -18689;
-    static int inky = -16711681;
-    static int sue = -18859;
-    static int edible = -14408449;
-    static int pill = -2434305;
+//    static int pinky = -18689;
+//    static int inky = -16711681;
+//    static int sue = -18859;
+//    static int edible = -14408449;
+//    static int pill = -2434305;
 
     static int blinky = -65536;
     static int pacMan = -256;
