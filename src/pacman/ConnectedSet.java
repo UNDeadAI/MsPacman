@@ -5,13 +5,10 @@ import java.awt.*;
 public class ConnectedSet implements Drawable {
     int x, y;
     int width, height;
-    int fg;
-    int xMin, xMax, yMin, yMax;
-    int pTot;
-    int tot;
+    int fg, xMin, xMax, yMin, yMax, pTot, tot;
     Color c;
     public int px, py;
-    boolean valid = false;
+    private boolean valid = false;
 
     public ConnectedSet(int x, int y, int fg) {
         this.x = x;
@@ -56,40 +53,32 @@ public class ConnectedSet implements Drawable {
     public boolean isPinky(){
         validate();
         if(width >= 10 && height >= 10)
-            if(fg == MsPacInterface.pinky){
-                GameState.isPinkyEdible = false;
+            if(fg == MsPacInterface.pinky)
                 return true;
-            }
             return false;
     }
 
     public boolean isBlinky() {
         validate();
         if(width >= 10 && height >= 10)
-            if(fg == MsPacInterface.blinky){
-                GameState.isBlinkyEdible = false;
+            if(fg == MsPacInterface.blinky)
                 return true;
-            }
             return false;
     }
 
     public boolean isInky() {
         validate();
         if(width >= 10 && height >= 10)
-            if(fg == MsPacInterface.inky){
-                GameState.isInkyEdible = false;
+            if(fg == MsPacInterface.inky)
                 return true;
-            }
             return false;
     }
 
     public boolean isSue() {
         validate();
         if(width >= 10 && height >= 10)
-            if(fg == MsPacInterface.sue){
-                GameState.isSueEdible = false;
+            if(fg == MsPacInterface.sue)
                 return true;
-            }
         return false;
         // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
@@ -147,10 +136,6 @@ public class ConnectedSet implements Drawable {
 
     public String toString() {
         return x + " : " + y + " : " + pTot;
-    }
-
-    public int dist(Position p) {
-        return (int) Math.sqrt(sqr(x - p.x) + sqr(y - p.y));
     }
 
     public static int sqr(int x) {

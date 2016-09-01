@@ -22,7 +22,4 @@ public interface Constants {
     public final Vector2d vRight = new Vector2d(1, 0);
     public final Vector2d vDown = new Vector2d(0, 1);
     public final Vector2d vLeft = new Vector2d(-1, 0);
-
-    
-
 }

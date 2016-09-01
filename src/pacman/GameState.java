@@ -2,26 +2,27 @@ package pacman;
 
 import games.math.Vector2d;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.awt.*;
 
 
 public class GameState implements Drawable {
 
-    static int strokeWidth = 5;
-    static Stroke stroke =  new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+    static private int strokeWidth = 5;
+    static private Stroke stroke =  new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 
     Agent agent;
-    Vector2d closestPill, closestGhost, closestPowerPill, closestEdible, blinkyPos = new Vector2d(),
-            inkyPos = new Vector2d(), suePos = new Vector2d(), pinkyPos = new Vector2d(), tmp;
+    Vector2d closestPill, closestGhost, closestPowerPill, closestEdible = new Vector2d(), blinkyPos = new Vector2d(),
+            inkyPos = new Vector2d(), suePos = new Vector2d(), pinkyPos = new Vector2d(),
+            currentObjective = new Vector2d(), tmp;
 
-    Double blinkyDistance = 0.0, inkyDistance = 0.0, sueDistance = 0.0, pinkyDistance = 0.0;
+    private double blinkyDistance, inkyDistance, sueDistance, pinkyDistance;
 
-    static int nFeatures = 13;
-    double[] vec;
-
-    static HashMap<Integer,Integer> ghostLut = new HashMap <>();
+    static private int nFeatures = 13;
+    private double[] vec;
+    private Vector2d[] edibles = new Vector2d[4];
+    private int currentEdible;
+    static private HashMap<Integer,Integer> ghostLut = new HashMap <>();
 
     public GameState() {
         agent = new Agent();
@@ -36,13 +37,9 @@ public class GameState implements Drawable {
         ghostLut.put(MsPacInterface.sue, 3);
     }
 
-    static boolean isBlinkyEdible = false;
-    static boolean isPinkyEdible = false;
-    static boolean isInkyEdible = false;
-    static boolean isSueEdible = false;
+    private boolean isBlinkyEdible, isPinkyEdible, isInkyEdible, isSueEdible;
 
-
-    public void eatSuperPoewrPill(){
+    public void eatSuperPowerPill(){
         isBlinkyEdible = isPinkyEdible = isSueEdible = isInkyEdible = true;
     }
 
@@ -50,96 +47,157 @@ public class GameState implements Drawable {
         return isBlinkyEdible || isPinkyEdible || isSueEdible || isInkyEdible;
     }
 
+    public boolean allAreEdibles(){ return isBlinkyEdible && isPinkyEdible && isSueEdible && isInkyEdible; }
+
     public void updateClosestGhost(){
         if(blinkyDistance <= pinkyDistance && blinkyDistance <= inkyDistance && blinkyDistance <= sueDistance)
             closestGhost = blinkyPos;
-        if(blinkyDistance > pinkyDistance && pinkyDistance < inkyDistance && pinkyDistance < sueDistance)
+        else if(blinkyDistance > pinkyDistance && pinkyDistance < inkyDistance && pinkyDistance < sueDistance)
             closestGhost = pinkyPos;
-        if(inkyDistance  < pinkyDistance && blinkyDistance > inkyDistance && inkyDistance < sueDistance)
+        else if(inkyDistance  < pinkyDistance && blinkyDistance > inkyDistance && inkyDistance < sueDistance)
             closestGhost = inkyPos;
-        if(sueDistance < pinkyDistance && sueDistance < inkyDistance && blinkyDistance > sueDistance)
+        else if(sueDistance < pinkyDistance && sueDistance < inkyDistance && blinkyDistance > sueDistance)
             closestGhost = suePos;
+    }
+
+    private void updateClosestGhost(Vector2d ghost, int x , int y){
+        ghost.set(x, y);
+        if (closestGhost == null)
+            closestGhost = new Vector2d(ghost);
     }
 
     public void update(ConnectedSet cs, int[] pix) {
         if (cs.isPacMan())
             agent.update(cs, pix);
         else if (cs.isBlinky()) {
-            if(!thereAreEdibles())
-                closestEdible = null;
-            blinkyPos.set(cs.x, cs.y);
-            if (closestGhost == null)
-                closestGhost = new Vector2d(blinkyPos);
+            isBlinkyEdible = false;
+            updateClosestGhost(blinkyPos, cs.x, cs.y);
             blinkyDistance = agent.cur.dist(blinkyPos);
             updateClosestGhost();
         }
         else if (cs.isSue()) {
-            if(!thereAreEdibles())
-                closestEdible = null;
-            suePos.set(cs.x, cs.y);
-            if (closestGhost == null)
-                closestGhost = new Vector2d(suePos);
+            isSueEdible = false;
+            updateClosestGhost(suePos, cs.x, cs.y);
             sueDistance = agent.cur.dist(suePos);
             updateClosestGhost();
         }
         else if (cs.isInky()) {
-            if(!thereAreEdibles())
-                closestEdible = null;
-            inkyPos.set(cs.x, cs.y);
-            if (closestGhost == null)
-                closestGhost = new Vector2d(inkyPos);
+            isInkyEdible = false;
+            updateClosestGhost(inkyPos, cs.x, cs.y);
             inkyDistance = agent.cur.dist(inkyPos);
             updateClosestGhost();
         }
         else if (cs.isPinky()) {
-            if(!thereAreEdibles())
-                closestEdible = null;
-            pinkyPos.set(cs.x, cs.y);
-            if (closestGhost == null)
-                closestGhost = new Vector2d(pinkyPos);
+            isPinkyEdible = false;
+            updateClosestGhost(pinkyPos, cs.x, cs.y);
             pinkyDistance = agent.cur.dist(pinkyPos);
             updateClosestGhost();
         }
         else if (cs.isPill()) {
-            if(closestPill != null)
-                if (closestPill.dist(agent.cur) < 8)
-                    closestPill = null;
-            tmp.set(cs.x, cs.y);
             tmp.set(cs.x, cs.y);
             if (closestPill == null)
                 closestPill = new Vector2d(tmp);
             else if (tmp.dist(agent.cur) < closestPill.dist(agent.cur))
                 closestPill.set(tmp);
+            if(closestPill != null)
+                if (closestPill.dist(agent.cur) < 8)
+                    closestPill = null;
         }
         else if (cs.isPowerPill()) {
-            if(closestPowerPill != null)
-                if (closestPowerPill.dist(agent.cur) < 8)
-                    closestPowerPill = null;
             tmp.set(cs.x, cs.y);
             if (closestPowerPill == null)
                 closestPowerPill = new Vector2d(tmp);
             else if (tmp.dist(agent.cur) < closestPowerPill.dist(agent.cur))
                 closestPowerPill.set(tmp);
+            if(closestPowerPill != null)
+                if (closestPowerPill.dist(agent.cur) < 8) {
+                    closestPowerPill = null;
+                    eatSuperPowerPill();
+                }
         }
         else if(cs.isEdible()){
             tmp.set(cs.x, cs.y);
-            if (closestEdible == null)
-                closestEdible = new Vector2d(tmp);
-            else if (tmp.dist(agent.cur) < closestEdible.dist(agent.cur))
-                closestEdible.set(tmp);
+            nextEdible();
+            updateClosestEdible();
         }
+    }
+
+    private void nextEdible(){
+        if(!isBlinkyEdible)
+            edibles[0] = null;
+        if(!isInkyEdible)
+            edibles[1] = null;
+        if(!isPinkyEdible)
+            edibles[2] = null;
+        if(!isSueEdible)
+            edibles[3] = null;
+
+        for(int i = 0; i < 4; i++){
+            if(currentEdible == 0){
+                if(isBlinkyEdible) {
+                    edibles[0] = tmp;
+                    currentEdible++;
+                    break;
+                }
+                currentEdible++;
+            }
+            else if(currentEdible == 1){
+                if(isInkyEdible) {
+                    edibles[1] = tmp;
+                    currentEdible++;
+                    break;
+                }
+                currentEdible++;
+            }
+            else if(currentEdible == 2){
+                if(isPinkyEdible) {
+                    edibles[2] = tmp;
+                    currentEdible++;
+                    break;
+                }
+                currentEdible++;
+            }
+            if(currentEdible == 3){
+                if(isSueEdible) {
+                    edibles[3] = tmp;
+                    currentEdible = 0;
+                    break;
+                }
+                currentEdible = 0;
+            }
+        }
+        System.out.println(edibles[0] + " " + edibles[1] + " " + edibles[2] + " " + edibles[3]);
+    }
+
+    public void updateClosestEdible(){
+        Vector2d aux = null;
+        for(int i = 0; i < 4; i++){
+            if(edibles[i] != null)
+                if(aux == null)
+                    aux = edibles[i];
+                else
+                    if(edibles[i].dist(agent.cur) < aux.dist(agent.cur))
+                        aux.set(edibles[i]);
+        }
+        if(aux != null)
+            closestEdible.set(aux);
+    }
+
+    public void setCurrentObjective(Vector2d v){
+        if(v != null)
+            currentObjective.set(v);
     }
 
     public void draw(Graphics gg, int w, int h) {
         Graphics2D g = (Graphics2D) gg;
-
         if (agent != null)
             agent.draw(g, w, h);
-        if (closestGhost != null && agent != null) {
+        if (currentObjective != null && agent != null) {
             g.setStroke(stroke);
             g.setColor(Color.cyan);
-            g.drawLine((int) closestGhost.x, (int) closestGhost.y, (int) agent.cur.x, (int) agent.cur.y);
+            g.drawLine((int) currentObjective.x, (int) currentObjective.y, (int) agent.cur.x, (int) agent.cur.y);
         }
+        //System.out.println(currentObjective);
     }
 
     public void reset() {

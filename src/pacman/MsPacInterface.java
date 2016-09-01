@@ -10,21 +10,20 @@ import stats.StatisticalSummary;
 
 public class MsPacInterface {
     // delay between each screen capture
-    static int delay = 10;
-    static boolean display = true;
+    static private int delay = 10;
 
     //Mis top y left
-    int left = 576;
-    int top = 246;
+    private int left = 576;
+    private int top = 246;
 
-    //int left = 571;
-    //int top = 285;
+    //private int left = 571;
+    //private int top = 285;
     public static int width = 224;
     public static int height = 248;
-    int[] pixels;
-    Robot robot;
-    SimpleExtractor se;
-    SimpleDisplay sd;
+    private int[] pixels;
+    private Robot robot;
+    private SimpleExtractor se;
+    private SimpleDisplay sd;
 
 //  CSharp app colors
     static int pinky = -18210;
@@ -68,7 +67,7 @@ public class MsPacInterface {
     public void analyseComponents(int[] pix) {
         se.gs.reset();
         ArrayList<Drawable> al = se.consume(pix, colors);
-        if (display) sd.updateObjects(al);
+        sd.updateObjects(al);
     }
 
     public int[] getPixels() {
@@ -87,7 +86,7 @@ public class MsPacInterface {
             ms.analyseComponents(pix);
             int action = ms.se.gs.agent.move(ms.se.gs);
             pm.move(action);
-            if (display) dc.update(action);
+            dc.update(action);
             Thread.sleep(delay);
         }
     }

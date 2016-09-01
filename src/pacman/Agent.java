@@ -62,13 +62,15 @@ public class Agent implements Drawable, PacAgent, Constants {
     }
 
     public double closestPowerPillDistance(Vector2d pos, GameState gs) {
-        if (gs.closestPill != null)
-            return pos.dist(gs.closestPill);
+        if (gs.closestPowerPill != null)
+            return pos.dist(gs.closestPowerPill);
         else
             return 0;
     }
 
     public double closestGhostDistance(Vector2d pos, GameState gs) {
+        if(gs.allAreEdibles())
+            gs.closestGhost = null;
         if (gs.closestGhost != null)
             return pos.dist(gs.closestGhost);
         else
@@ -83,8 +85,10 @@ public class Agent implements Drawable, PacAgent, Constants {
     }
 
     public double closestEdibleDistance(Vector2d pos, GameState gs) {
-        if (gs.closestPill != null)
-            return pos.dist(gs.closestPill);
+        if(!gs.thereAreEdibles())
+            return 0;
+        if (gs.closestEdible != null)
+            return pos.dist(gs.closestEdible);
         else
             return 0;
     }
@@ -117,7 +121,7 @@ public class Agent implements Drawable, PacAgent, Constants {
                 }
 
                 aux = closestGhostDistance(tmp, gs);
-                if(aux > closestGhostDistance) {
+                if(aux >= closestGhostDistance) {
                     closestGhostDistance = aux;
                     moveAway = i;
                 }
@@ -129,49 +133,35 @@ public class Agent implements Drawable, PacAgent, Constants {
                 }
             }
         }
-        //Utility
-//        if(gs.closestEdible != null)
-//            move = moveToEdible;
-//        else {
-//            tmp.set(cur);
-//            if (moveToPill != -1) tmp.add(vDirs[moveToPill]);
-//            aux = closestGhostDistance(tmp, gs);
-//            if (aux > 24 || aux > closestGhostDistance(cur, gs)) {
-//                if (closestPowerPillDistance(tmp, gs) < 8)
-//                    move = -1;
-//                else
-//                    move = moveToPill;
-//            } else {
-//                tmp.set(cur);
-//                if (moveToPowerPill != -1) tmp.add(vDirs[moveToPowerPill]);
-//
-//                if (closestPowerPillDistance < 8 && closestGhostDistance(tmp, gs) > 24)
-//                    move = -1;
-//                else if (closestGhostDistance(tmp, gs) < 24)
-//                    move = moveToPowerPill;
-//                else if (closestPowerPillDistance < closestGhostDistance(tmp, gs))
-//                    move = moveToPowerPill;
-//                else
-//                    move = moveAway;
-//            }
-//        }
-
-        //Escape from ghosts
-//        tmp.set(cur);
-//            if (moveAway != -1) tmp.add(vDirs[moveAway]);
-//        if(closestGhostDistance(tmp, gs) < 224)
+        if(moveToEdible != -1) {
+            move = moveToEdible;
+            gs.setCurrentObjective(gs.closestEdible);
+        }
+        else if(moveToPowerPill != -1 && closestGhostDistance < 24) {
+            move = moveToPowerPill;
+            gs.setCurrentObjective(gs.closestPowerPill);
+        }
+        else if(moveAway != -1 && closestGhostDistance < 44) {
             move = moveAway;
+            gs.setCurrentObjective(gs.closestGhost);
+        }
+        else {
+            move = moveToPill;
+            gs.setCurrentObjective(gs.closestPill);
+        }
 
-        //move to the closest POwerPill
-        //move = moveToPowerPill;
+        if(moveToEdible != -1) {
+            move = moveToEdible;
+            gs.setCurrentObjective(gs.closestEdible);
+        }
+        else {
+            move = moveToPowerPill;
+            gs.setCurrentObjective(gs.closestPowerPill);
+        }
 
         move += 1;
-        System.out.println(move);
-        if (move == currentDirection)
-            return NEUTRAL;
-        else
-            return move;
 
+        return move;
     }
 
     private int search(int p, int[] pix, int delta) {
