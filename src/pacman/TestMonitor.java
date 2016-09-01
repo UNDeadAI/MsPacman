@@ -37,11 +37,5 @@ public class TestMonitor {
             bw.close();
             System.exit(0);
         }
-
     }
-
-//    public int getMove(GameState gs) {
-//
-//    }
-//
 }

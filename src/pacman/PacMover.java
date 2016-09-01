@@ -24,8 +24,8 @@ public class PacMover implements Constants {
             // prevent the robot from being flooded with too many events
             robot.setAutoWaitForIdle(false);                            //AutoWaitForIdle non activated
             robot.setAutoDelay(autoDelay);                              //Sets the number of milliseconds this Robot sleeps after generating an event
-            System.out.println(robot.getAutoDelay());
-            System.out.println(robot.isAutoWaitForIdle());
+            //System.out.println(robot.getAutoDelay());
+            //System.out.println(robot.isAutoWaitForIdle());
             curKey = -1;
             //robot.waitForIdle();
         } catch(Exception e) {}

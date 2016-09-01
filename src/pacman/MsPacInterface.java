@@ -6,11 +6,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import stats.StatisticalSummary;
-
 public class MsPacInterface {
     // delay between each screen capture
-    static private int delay = 10;
+    static private int delay = 9;
 
     //Mis top y left
     private int left = 576;

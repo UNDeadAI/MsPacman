@@ -14,7 +14,9 @@ public class GameState implements Drawable {
     Agent agent;
     Vector2d closestPill, closestGhost, closestPowerPill, closestEdible = new Vector2d(), blinkyPos = new Vector2d(),
             inkyPos = new Vector2d(), suePos = new Vector2d(), pinkyPos = new Vector2d(),
-            currentObjective = new Vector2d(), tmp;
+            currentObjective = new Vector2d(), tmp, profeObjetivo = new Vector2d(196, 13),
+            profeObjetivo2 = new Vector2d(220, 140), profeObjetivo3 = new Vector2d(27, 189), border = new Vector2d(12, 13);
+    //240, 140
 
     private double blinkyDistance, inkyDistance, sueDistance, pinkyDistance;
 
@@ -28,6 +30,7 @@ public class GameState implements Drawable {
         agent = new Agent();
         tmp = new Vector2d();
         vec = new double[nFeatures];
+        currentObjective.set(profeObjetivo);
     }
 
     static {
@@ -49,7 +52,7 @@ public class GameState implements Drawable {
 
     public boolean allAreEdibles(){ return isBlinkyEdible && isPinkyEdible && isSueEdible && isInkyEdible; }
 
-    public void updateClosestGhost(){
+    private void updateClosestGhost(){
         if(blinkyDistance <= pinkyDistance && blinkyDistance <= inkyDistance && blinkyDistance <= sueDistance)
             closestGhost = blinkyPos;
         else if(blinkyDistance > pinkyDistance && pinkyDistance < inkyDistance && pinkyDistance < sueDistance)
@@ -111,6 +114,7 @@ public class GameState implements Drawable {
                 closestPowerPill.set(tmp);
             if(closestPowerPill != null)
                 if (closestPowerPill.dist(agent.cur) < 8) {
+                    eatSuperPowerPill();
                     closestPowerPill = null;
                     eatSuperPowerPill();
                 }
@@ -166,10 +170,10 @@ public class GameState implements Drawable {
                 currentEdible = 0;
             }
         }
-        System.out.println(edibles[0] + " " + edibles[1] + " " + edibles[2] + " " + edibles[3]);
+        //System.out.println(edibles[0] + " " + edibles[1] + " " + edibles[2] + " " + edibles[3]);
     }
 
-    public void updateClosestEdible(){
+    private void updateClosestEdible(){
         Vector2d aux = null;
         for(int i = 0; i < 4; i++){
             if(edibles[i] != null)
