@@ -2,7 +2,6 @@ package pacman;
 
 import static pacman.MsPacInterface.width;
 import java.awt.*;
-import games.math.Vector2d;
 
 
 public class Agent implements Drawable, PacAgent, Constants {
@@ -37,15 +36,17 @@ public class Agent implements Drawable, PacAgent, Constants {
         tmp = new Vector2d();
     }
 
-    public void update(ConnectedSet cs, int[] pix) {
-        cs.validate();
-        w = cs.width;
-        h = cs.height;
+    public void updatePosition(ConnectedSet cs){
         prev.set(x, y);
-        x = cs.xMin + w / 2;
-        y = cs.yMin + h / 2;
+        x = (cs.x - 3) / 8;
+        y = (cs.y - 11) / 8;
         cur.set(x, y);
         setDir(prev, cur);
+        this.color = cs.c;
+    }
+
+    public void update(ConnectedSet cs, int[] pix) {
+        cs.validate();
         for (int i = 0; i < dirs.length; i++)
             d[i] = search(x + y * width, pix, dirs[i]);
         this.color = cs.c;
@@ -93,6 +94,15 @@ public class Agent implements Drawable, PacAgent, Constants {
             return 0;
     }
 
+    public int move2(GameState gs){
+        move = -1;
+        if(gs.closestPill != null) {
+            move = gs.closestPill.dir;
+            gs.setCurrentObjective(gs.closestPill);
+        }
+        return move;
+    }
+
     public int move(GameState gs) {
         move = -1;
         double closestPillDistance = closestPillDistance(cur, gs),
@@ -102,7 +112,6 @@ public class Agent implements Drawable, PacAgent, Constants {
 
         int moveToPill = -1, moveToPowerPill = -1, moveAway = -1, moveToEdible = -1;
 
-        //What my actions do
         for (int i = 0; i < dirs.length; i++) {
             if (d[i] > 12) {
                 tmp.set(cur);

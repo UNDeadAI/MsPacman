@@ -1,43 +1,163 @@
 package pacman;
 
-import games.math.Vector2d;
-
-import java.util.HashMap;
+import java.util.ArrayDeque;
 import java.awt.*;
 
 
 public class GameState implements Drawable {
 
-    static private int strokeWidth = 5;
+    Agent agent;
+    static private int strokeWidth = 5, xPills = 28, yPills = 29;
     static private Stroke stroke =  new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 
-    Agent agent;
     Vector2d closestPill, closestGhost, closestPowerPill, closestEdible = new Vector2d(), blinkyPos = new Vector2d(),
             inkyPos = new Vector2d(), suePos = new Vector2d(), pinkyPos = new Vector2d(),
-            currentObjective = new Vector2d(), tmp;
+            currentObjective = new Vector2d(), tmp, currentPowerPillPos = new Vector2d(), currentPillPos = new Vector2d(),
+            currentEdiblePos = new Vector2d();
 
-    private double blinkyDistance, inkyDistance, sueDistance, pinkyDistance;
-
-    static private int nFeatures = 13;
-    private double[] vec;
     private Vector2d[] edibles = new Vector2d[4];
     private int currentEdible;
-    static private HashMap<Integer,Integer> ghostLut = new HashMap <>();
+    private boolean isBlinkyEdible, isPinkyEdible, isInkyEdible, isSueEdible;
+    static int width = MsPacInterface.width;
+    static int height = MsPacInterface.height;
+    static int b = -16777216;
+
+    public static int matrix[][] = new int[yPills][xPills]; //positions of the pills, in pixels is i = i*8+3, j = j*8+11
+    private static int DR[] = {0, 1, 0, -1};
+    private static int DC[] = {1, 0, -1, 0};
 
     public GameState() {
         agent = new Agent();
         tmp = new Vector2d();
-        vec = new double[nFeatures];
     }
 
-    static {
-        ghostLut.put(MsPacInterface.blinky, 0);
-        ghostLut.put(MsPacInterface.inky, 1);
-        ghostLut.put(MsPacInterface.pinky, 2);
-        ghostLut.put(MsPacInterface.sue, 3);
+    private static boolean validatePos2(int x, int y, int[] pix){
+        x = x*8+11;
+        y = y*8+3;
+        int a = x*width + y;
+        if(pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            return false;
+        x = x+8;
+        if(x < height) {
+            a = x*width + y;
+            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+                return false;
+        }
+        x = x - 14;
+        if(x >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+                return false;
+        }
+        x = x + 6;
+        y = y + 8;
+        if(y < width) {
+            a = x*width + y;
+            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+                return false;
+        }
+        y = y - 14;
+        if(y >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+                return false;
+        }
+        return true;
     }
 
-    private boolean isBlinkyEdible, isPinkyEdible, isInkyEdible, isSueEdible;
+    private static boolean validatePos(int x, int y, int[] pix){
+        x = x*8+12;
+        y = y*8+4;
+        int a = x*width + y;
+        if(pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            return false;
+        x = x+7;
+        if(x < height) {
+            a = x*width + y;
+            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+                return false;
+        }
+        x = x - 14;
+        if(x >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+                return false;
+        }
+        x = x + 7;
+        y = y + 7;
+        if(y < width) {
+            a = x*width + y;
+            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+                return false;
+        }
+        y = y - 14;
+        if(y >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+                return false;
+        }
+        return true;
+    }
+
+    public void search(int tXPos, int tYPos){
+        for(int i = 0; i < yPills; i++)
+            for (int j = 0; j < xPills; j++)
+                matrix[i][j] = 0;
+        matrix[tYPos] [tXPos] = 1;
+        ArrayDeque<Node> queue = new ArrayDeque<>();
+        Node u, child;
+        Vector2d vector;
+        queue.add(new Node(tYPos, tXPos, 0));
+        int tmp1, tmp2;
+        while(!queue.isEmpty()){
+            u = queue.poll();
+            for(int i = 0; i < 4; i++){
+                tmp1 = DR[i] + u.x;
+                tmp2 = DC[i] + u.y;
+                if(tmp1 < yPills && tmp1 >= 0){
+                    if(tmp2 >= xPills)
+                        tmp2 = 0;
+                    if(tmp2 < 0)
+                        tmp2 = xPills - 1;
+                    if(matrix[tmp1][tmp2] == 0){
+                        matrix[tmp1][tmp2] = 1;
+                        if(validatePos(tmp1, tmp2, MsPacInterface.pixels) && validatePos2(tmp1, tmp2, MsPacInterface.pixels)) {
+                            child = new Node(tmp1, tmp2, u.weight + 1);
+                            if (u.dir == -1)
+                                child.dir = i+1;
+                            else
+                                child.dir = u.dir;
+                            queue.add(child);
+                            vector = new Vector2d(tmp2, tmp1, u.weight + 1, child.dir);
+                            if (inkyPos.equals(vector)) {
+                                inkyPos.w = vector.w;
+                                updateClosestGhost();
+                            } else if (suePos.equals(vector)) {
+                                suePos.w = vector.w;
+                                updateClosestGhost();
+                            } else if (blinkyPos.equals(vector)) {
+                                blinkyPos.w = vector.w;
+                                updateClosestGhost();
+                            } else if (pinkyPos.equals(vector)) {
+                                pinkyPos.w = vector.w;
+                                updateClosestGhost();
+                            } else if (currentPowerPillPos.equals(vector)) {
+                                updateClosestPowerPill(vector);
+                            } else if (currentPillPos.equals(vector)) {
+                                updateClosestPill(vector);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+//        for(int i = 0; i < yPills; i++) {
+//            for (int j = 0; j < xPills; j++)
+//                System.out.print(matrix[i][j] + " ");
+//            System.out.println();
+//        }
+//        System.out.println();
+    }
 
     public void eatSuperPowerPill(){
         isBlinkyEdible = isPinkyEdible = isSueEdible = isInkyEdible = true;
@@ -50,70 +170,81 @@ public class GameState implements Drawable {
     public boolean allAreEdibles(){ return isBlinkyEdible && isPinkyEdible && isSueEdible && isInkyEdible; }
 
     public void updateClosestGhost(){
-        if(blinkyDistance <= pinkyDistance && blinkyDistance <= inkyDistance && blinkyDistance <= sueDistance)
+        if(blinkyPos.w <= pinkyPos.w && blinkyPos.w <= inkyPos.w && blinkyPos.w <= suePos.w)
             closestGhost = blinkyPos;
-        else if(blinkyDistance > pinkyDistance && pinkyDistance < inkyDistance && pinkyDistance < sueDistance)
+        else if(blinkyPos.w > pinkyPos.w && pinkyPos.w < inkyPos.w && pinkyPos.w < suePos.w)
             closestGhost = pinkyPos;
-        else if(inkyDistance  < pinkyDistance && blinkyDistance > inkyDistance && inkyDistance < sueDistance)
+        else if(inkyPos.w  < pinkyPos.w && blinkyPos.w > inkyPos.w && inkyPos.w < suePos.w)
             closestGhost = inkyPos;
-        else if(sueDistance < pinkyDistance && sueDistance < inkyDistance && blinkyDistance > sueDistance)
+        else if(suePos.w < pinkyPos.w && suePos.w < inkyPos.w && blinkyPos.w > suePos.w)
             closestGhost = suePos;
     }
 
-    private void updateClosestGhost(Vector2d ghost, int x , int y){
+    private void updateGhost(Vector2d ghost, int x , int y){
+        x = (x-3) / 8;
+        y = (y-11) / 8;
         ghost.set(x, y);
-        if (closestGhost == null)
-            closestGhost = new Vector2d(ghost);
     }
 
-    public void update(ConnectedSet cs, int[] pix) {
-        if (cs.isPacMan())
-            agent.update(cs, pix);
+    private void updateCurrentPowerPill(int x , int y){
+        x = (x-3) / 8;
+        y = (y-11) / 8;
+        currentPowerPillPos.set(x, y);
+    }
+
+    private void updateClosestPowerPill(Vector2d v){
+        if(closestPowerPill == null)
+            closestPowerPill = new Vector2d(v);
+        else if(v.w < closestPowerPill.w)
+                closestPowerPill.set(v);
+    }
+
+    private void updateCurrentPill(int x , int y){
+        x = (x-3) / 8;
+        y = (y-11) / 8;
+        currentPillPos.set(x, y);
+    }
+
+    private void updateClosestPill(Vector2d v){
+        if(closestPill == null)
+            closestPill = new Vector2d(v);
+        else if(v.w < closestPill.w)
+            closestPill.set(v);
+    }
+
+    
+    public void update(ConnectedSet cs) {
+        if (cs.isPacMan()) {
+            agent.updatePosition(cs);
+            search(agent.x, agent.y);
+            //agent.update(cs, pix);
+        }
         else if (cs.isBlinky()) {
             isBlinkyEdible = false;
-            updateClosestGhost(blinkyPos, cs.x, cs.y);
-            blinkyDistance = agent.cur.dist(blinkyPos);
-            updateClosestGhost();
+            updateGhost(blinkyPos, cs.x, cs.y);
+            //blinkyPos.w = agent.cur.dist(blinkyPos);
         }
         else if (cs.isSue()) {
             isSueEdible = false;
-            updateClosestGhost(suePos, cs.x, cs.y);
-            sueDistance = agent.cur.dist(suePos);
-            updateClosestGhost();
+            updateGhost(suePos, cs.x, cs.y);
+            //suePos.w = agent.cur.dist(suePos);
         }
         else if (cs.isInky()) {
             isInkyEdible = false;
-            updateClosestGhost(inkyPos, cs.x, cs.y);
-            inkyDistance = agent.cur.dist(inkyPos);
-            updateClosestGhost();
+            updateGhost(inkyPos, cs.x, cs.y);
+            //inkyPos.w = agent.cur.dist(inkyPos);
         }
         else if (cs.isPinky()) {
             isPinkyEdible = false;
-            updateClosestGhost(pinkyPos, cs.x, cs.y);
-            pinkyDistance = agent.cur.dist(pinkyPos);
-            updateClosestGhost();
+            updateGhost(pinkyPos, cs.x, cs.y);
+            //pinkyPos.w = agent.cur.dist(pinkyPos);
         }
         else if (cs.isPill()) {
-            tmp.set(cs.x, cs.y);
-            if (closestPill == null)
-                closestPill = new Vector2d(tmp);
-            else if (tmp.dist(agent.cur) < closestPill.dist(agent.cur))
-                closestPill.set(tmp);
-            if(closestPill != null)
-                if (closestPill.dist(agent.cur) < 8)
-                    closestPill = null;
+            updateCurrentPill(cs.x, cs.y);
+            //search(agent.x, agent.y);
         }
         else if (cs.isPowerPill()) {
-            tmp.set(cs.x, cs.y);
-            if (closestPowerPill == null)
-                closestPowerPill = new Vector2d(tmp);
-            else if (tmp.dist(agent.cur) < closestPowerPill.dist(agent.cur))
-                closestPowerPill.set(tmp);
-            if(closestPowerPill != null)
-                if (closestPowerPill.dist(agent.cur) < 8) {
-                    closestPowerPill = null;
-                    eatSuperPowerPill();
-                }
+            updateCurrentPowerPill(cs.x, cs.y);
         }
         else if(cs.isEdible()){
             tmp.set(cs.x, cs.y);
@@ -166,7 +297,6 @@ public class GameState implements Drawable {
                 currentEdible = 0;
             }
         }
-        System.out.println(edibles[0] + " " + edibles[1] + " " + edibles[2] + " " + edibles[3]);
     }
 
     public void updateClosestEdible(){
@@ -184,8 +314,9 @@ public class GameState implements Drawable {
     }
 
     public void setCurrentObjective(Vector2d v){
-        if(v != null)
-            currentObjective.set(v);
+        if(v != null) {
+            currentObjective.set(v.x, v.y);
+        }
     }
 
     public void draw(Graphics gg, int w, int h) {
@@ -195,9 +326,8 @@ public class GameState implements Drawable {
         if (currentObjective != null && agent != null) {
             g.setStroke(stroke);
             g.setColor(Color.cyan);
-            g.drawLine((int) currentObjective.x, (int) currentObjective.y, (int) agent.cur.x, (int) agent.cur.y);
+            g.drawLine((int) currentObjective.x*8+3, (int) currentObjective.y*8+11, (int) agent.cur.x*8+3, (int) agent.cur.y*8+11);
         }
-        //System.out.println(currentObjective);
     }
 
     public void reset() {
