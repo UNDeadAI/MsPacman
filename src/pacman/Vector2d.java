@@ -29,16 +29,9 @@ public class Vector2d {
         dir = d;
     }
 
-    public Vector2d(double x, double y, int w) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        dir = 0;
-    }
-
-    public void add(Vector2d v) {
-        this.x += v.x;
-        this.y += v.y;
+    public void updateVector(Node n){
+        w = n.weight;
+        dir = n.dir;
     }
 
     public void subtract(Vector2d v) {

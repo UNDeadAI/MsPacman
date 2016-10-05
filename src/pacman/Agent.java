@@ -1,6 +1,5 @@
 package pacman;
 
-import static pacman.MsPacInterface.width;
 import java.awt.*;
 
 
@@ -62,6 +61,10 @@ public class Agent implements PacAgent, Constants {
                     }
                 }
             }
+        }
+        else if (gs.closestEdible != null){
+            move = gs.closestEdible.dir;
+            gs.setCurrentObjective(gs.closestEdible);
         }
         else if(gs.closestPill != null) {
             move = gs.closestPill.dir;

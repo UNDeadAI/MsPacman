@@ -86,6 +86,7 @@ public class MsPacInterface {
         while(true) {
             ms.getPixels();
             ms.analyseComponents(pixels);
+            ms.se.gs.engage();
             int action = ms.se.gs.agent.move(ms.se.gs);
             pm.move(action);
             dc.update(action);

@@ -13,7 +13,8 @@ public class GameState implements Drawable {
     Vector2d closestPill, closestGhost, closestPowerPill, closestEdible = new Vector2d(), blinkyPos = new Vector2d(),
             inkyPos = new Vector2d(), suePos = new Vector2d(), pinkyPos = new Vector2d(),
             currentObjective = new Vector2d(), tmp, currentPowerPillPos = new Vector2d(), currentPillPos = new Vector2d(),
-            currentEdiblePos = new Vector2d(), defaultVector = new Vector2d();
+            currentEdiblePos = new Vector2d(), defaultVector = new Vector2d(), blinkyEdiblePos,
+            inkyEdiblePos, sueEdiblePos, pinkyEdiblePos;
 
     private Vector2d[] edibles = new Vector2d[4];
     private int currentEdible;
@@ -108,6 +109,21 @@ public class GameState implements Drawable {
                                 updateClosestPowerPill(vector);
                             } else if (MsPacInterface.searchPixels[(tmp1*8+11)*width + (tmp2*8+3)] == MsPacInterface.pill) {
                                 updateClosestPill(vector);
+                            } else if (blinkyEdiblePos != null && blinkyEdiblePos.equals(vector)){
+                                blinkyEdiblePos.updateVector(child);
+                                updateClosestEdible();
+                            }
+                            else if (inkyEdiblePos != null && inkyEdiblePos.equals(vector)){
+                                inkyEdiblePos.updateVector(child);
+                                updateClosestEdible();
+                            }
+                            else if (sueEdiblePos != null && sueEdiblePos.equals(vector)){
+                                sueEdiblePos.updateVector(child);
+                                updateClosestEdible();
+                            }
+                            else if (pinkyEdiblePos != null && pinkyEdiblePos.equals(vector)){
+                                pinkyEdiblePos.updateVector(child);
+                                updateClosestEdible();
                             }
                         }
                     }
@@ -143,7 +159,7 @@ public class GameState implements Drawable {
         if(closestPowerPill == null)
             closestPowerPill = new Vector2d(v);
         else if(v.w <= closestPowerPill.w)
-                closestPowerPill.set(v);
+            closestPowerPill.set(v);
     }
 
     private void updateCurrentPill(int x , int y){
@@ -171,117 +187,82 @@ public class GameState implements Drawable {
         closestPowerPill = null;
         closestPill = null;
         closestEdible = null;
+        blinkyEdiblePos = null;
+        inkyEdiblePos = null;
+        sueEdiblePos = null;
+        pinkyEdiblePos = null;
+    }
+    public void engage(){
+        setPath(MsPacInterface.searchPixels);
+        search(agent.x, agent.y);
     }
 
     public void update(ConnectedSet cs) {
         if (cs.isPacMan()) {
             agent.updatePosition(cs);
-            setPath(MsPacInterface.searchPixels);
-            search(agent.x, agent.y);
         }
         else if (cs.isBlinky()) {
             isBlinkyEdible = false;
             updateGhost(blinkyPos, cs.x, cs.y);
-            //blinkyPos.w = agent.cur.dist(blinkyPos);
         }
         else if (cs.isSue()) {
             isSueEdible = false;
             updateGhost(suePos, cs.x, cs.y);
-            //suePos.w = agent.cur.dist(suePos);
         }
         else if (cs.isInky()) {
             isInkyEdible = false;
             updateGhost(inkyPos, cs.x, cs.y);
-            //inkyPos.w = agent.cur.dist(inkyPos);
         }
         else if (cs.isPinky()) {
             isPinkyEdible = false;
             updateGhost(pinkyPos, cs.x, cs.y);
-            //pinkyPos.w = agent.cur.dist(pinkyPos);
         }
         //else if (cs.isPill()) {
-            //updateCurrentPill(cs.x, cs.y);
-            //search(agent.x, agent.y);
+        //updateCurrentPill(cs.x, cs.y);
+        //search(agent.x, agent.y);
         //}
         else if (cs.isPowerPill()) {
             updateCurrentPowerPill(cs.x, cs.y);
         }
         else if(cs.isEdible()){
-            tmp.set((cs.x-3)/8, (cs.y-11)/8);
-            nextEdible();
-            updateClosestEdible();
+            if(blinkyEdiblePos == null)
+                blinkyEdiblePos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
+            else if(inkyEdiblePos == null)
+                inkyEdiblePos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
+            else if (sueEdiblePos == null)
+                sueEdiblePos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
+            else if (pinkyEdiblePos == null)
+                pinkyEdiblePos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
         }
     }
 
-    private void nextEdible(){
-        if(!isBlinkyEdible)
-            edibles[0] = null;
-        if(!isInkyEdible)
-            edibles[1] = null;
-        if(!isPinkyEdible)
-            edibles[2] = null;
-        if(!isSueEdible)
-            edibles[3] = null;
-
-        for(int i = 0; i < 4; i++){
-            if(currentEdible == 0){
-                if(isBlinkyEdible) {
-                    edibles[0] = tmp;
-                    currentEdible++;
-                    break;
-                }
-                currentEdible++;
+    public void updateClosestEdible() {
+        int min = 1000;
+        if (blinkyEdiblePos != null) {
+            if (blinkyEdiblePos.w <= min) {
+                min = blinkyEdiblePos.w;
+                closestEdible = blinkyEdiblePos;
             }
-            else if(currentEdible == 1){
-                if(isInkyEdible) {
-                    edibles[1] = tmp;
-                    currentEdible++;
-                    break;
-                }
-                currentEdible++;
+        }
+        if (inkyEdiblePos != null) {
+            if (inkyEdiblePos.w <= min) {
+                min = inkyEdiblePos.w;
+                closestEdible = inkyEdiblePos;
             }
-            else if(currentEdible == 2){
-                if(isPinkyEdible) {
-                    edibles[2] = tmp;
-                    currentEdible++;
-                    break;
-                }
-                currentEdible++;
+        }
+        if (sueEdiblePos != null) {
+            if (sueEdiblePos.w <= min) {
+                min = sueEdiblePos.w;
+                closestEdible = sueEdiblePos;
             }
-            if(currentEdible == 3){
-                if(isSueEdible) {
-                    edibles[3] = tmp;
-                    currentEdible = 0;
-                    break;
-                }
-                currentEdible = 0;
+        }
+        if (pinkyEdiblePos != null) {
+            if (pinkyEdiblePos.w <= min) {
+                min = pinkyEdiblePos.w;
+                closestEdible = pinkyEdiblePos;
             }
         }
     }
-
-    public void updateClosestEdible(){
-        Vector2d aux = null;
-        for(int i = 0; i < 4; i++){
-            if(edibles[i] != null)
-                if(aux == null)
-                    aux = edibles[i];
-                else
-                    if(edibles[i].dist(agent.cur) < aux.dist(agent.cur))
-                        aux.set(edibles[i]);
-        }
-        if(aux != null)
-            closestEdible.set(aux);
-    }
-
-    public void eatSuperPowerPill(){
-        isBlinkyEdible = isPinkyEdible = isSueEdible = isInkyEdible = true;
-    }
-
-    public boolean thereAreEdibles(){
-        return isBlinkyEdible || isPinkyEdible || isSueEdible || isInkyEdible;
-    }
-
-    public boolean allAreEdibles(){ return isBlinkyEdible && isPinkyEdible && isSueEdible && isInkyEdible; }
 
     public void setCurrentObjective(Vector2d v){
         if(v != null) {
