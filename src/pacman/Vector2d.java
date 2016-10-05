@@ -11,8 +11,8 @@ public class Vector2d {
     public Vector2d(double x, double y) {
         this.x = x;
         this.y = y;
-        w = 0;
-        dir = -1;
+        w = 1000;
+        dir = 0;
     }
 
     public Vector2d(Vector2d v) {
@@ -33,7 +33,7 @@ public class Vector2d {
         this.x = x;
         this.y = y;
         this.w = w;
-        dir = -1;
+        dir = 0;
     }
 
     public void add(Vector2d v) {

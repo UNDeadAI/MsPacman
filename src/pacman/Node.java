@@ -10,7 +10,7 @@ public class Node {
         this.x = x;
         this.y = y;
         weight = w;
-        dir = -1;
+        dir = 0;
     }
 
     public Node(int x, int y, int w, int d){
@@ -24,6 +24,6 @@ public class Node {
         this.x = x;
         this.y = y;
         weight = 0;
-        dir = -1;
+        dir = 0;
     }
 }

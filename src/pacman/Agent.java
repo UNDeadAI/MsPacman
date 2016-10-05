@@ -4,33 +4,16 @@ import static pacman.MsPacInterface.width;
 import java.awt.*;
 
 
-public class Agent implements Drawable, PacAgent, Constants {
+public class Agent implements PacAgent, Constants {
 
     Vector2d cur, prev, tmp;
 
-    static Vector2d[] vDirs = {
-            new Vector2d(0, -1),
-            new Vector2d(1, 0),
-            new Vector2d(0, 1),
-            new Vector2d(-1, 0),
-    };
-
-    //static int pill = MsPacInterface.pill & 0xFFFFFF;
-    //static int pacMan = MsPacInterface.pacMan & 0xFFFFFF;
-    //static int lips = MsPacInterface.blinky & 0xFFFFFF;
-
-    // d is the distance in each direction to the nearest wall
-    int[] d;
     int move, currentDirection;
 
     int x, y;
-    int w, h;
     Color color;
 
-    //static int[] dirs = {-width, 1, width, -1};
-
     public Agent() {
-        d = new int[]{20, 20, 20, 20};
         prev = new Vector2d();
         cur = new Vector2d();
         tmp = new Vector2d();
@@ -45,13 +28,6 @@ public class Agent implements Drawable, PacAgent, Constants {
         this.color = cs.c;
     }
 
-//    public void update(ConnectedSet cs, int[] pix) {
-//        cs.validate();
-//        for (int i = 0; i < dirs.length; i++)
-//            d[i] = search(x + y * width, pix, dirs[i]);
-//        this.color = cs.c;
-//    }
-
     public void setDir(Vector2d prev, Vector2d cur) {
         tmp.set(cur);
         tmp.subtract(prev);
@@ -62,6 +38,49 @@ public class Agent implements Drawable, PacAgent, Constants {
         if (tmp.scalarProduct(vLeft) > 0) currentDirection = LEFT;
     }
 
+    private int minGhostDistance = 4;
+    private int DR[] = {-1, 0, 1, 0};
+    private int DC[] = {0, 1, 0, -1};
+
+    public int move(GameState gs){
+        move = 0;
+        if(gs.closestGhost != null && gs.closestGhost.w <= minGhostDistance){
+            for(int i = 0; i < 4; i++) {
+                if (i + 1 != gs.closestGhost.dir) {
+                    int tmp1 = DR[i] + x;
+                    int tmp2 = DC[i] + y;
+                    if (tmp1 < 29 && tmp1 >= 0) {
+                        if (tmp2 >= 28)
+                            tmp2 = 0;
+                        if (tmp2 < 0)
+                            tmp2 = 28 - 1;
+                        if (GameState.path[tmp1][tmp2] == 1) {
+                            move = i+1;
+                            gs.setCurrentObjective(gs.closestGhost);
+                            return move;
+                        }
+                    }
+                }
+            }
+        }
+        else if(gs.closestPill != null) {
+            move = gs.closestPill.dir;
+            gs.setCurrentObjective(gs.closestPill);
+        }
+        return move;
+    }
+//static int pill = MsPacInterface.pill & 0xFFFFFF;
+    //static int pacMan = MsPacInterface.pacMan & 0xFFFFFF;
+    //static int lips = MsPacInterface.blinky & 0xFFFFFF;
+
+    // d is the distance in each direction to the nearest wall
+    //static int[] dirs = {-width, 1, width, -1};
+    //    public void update(ConnectedSet cs, int[] pix) {
+//        cs.validate();
+//        for (int i = 0; i < dirs.length; i++)
+//            d[i] = search(x + y * width, pix, dirs[i]);
+//        this.color = cs.c;
+//    }
 //    public double closestPowerPillDistance(Vector2d pos, GameState gs) {
 //        if (gs.closestPowerPill != null)
 //            return pos.dist(gs.closestPowerPill);
@@ -93,16 +112,6 @@ public class Agent implements Drawable, PacAgent, Constants {
 //        else
 //            return 0;
 //    }
-
-    public int move(GameState gs){
-        move = -1;
-        if(gs.closestPill != null) {
-            move = gs.closestPill.dir;
-            gs.setCurrentObjective(gs.closestPill);
-        }
-        return move;
-    }
-
 //    public int move(GameState gs) {
 //        move = -1;
 //        double closestPillDistance = closestPillDistance(cur, gs),
@@ -186,21 +195,4 @@ public class Agent implements Drawable, PacAgent, Constants {
 //        } catch (Exception e) {}
 //        return len;
 //    }
-
-    public void draw(Graphics gg, int ww, int hh) {
-        Graphics2D g = (Graphics2D) gg;
-        g.setColor(color);
-        g.fillRect(x - w / 2, y - h / 2, w, h);
-        g.setColor(Color.green);
-        g.drawLine(x, y, x, y - d[0]);
-        g.drawLine(x, y, x + d[1], y);
-        g.drawLine(x, y, x, y + d[2]);
-        g.drawLine(x, y, x - d[3], y);
-        g.setColor(Color.red);
-        if (move > 0) {
-            tmp.set(vDirs[move - 1]);
-            tmp.mul(20);
-            g.drawLine(x, y, x + (int) tmp.x, y + (int) tmp.y);
-        }
-    }
 }

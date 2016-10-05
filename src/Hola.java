@@ -170,23 +170,23 @@ public class Hola {
             System.out.println();
         }
         System.out.println("\n");
-
-        blinkyPos.set((125-3)/8,(65-11)/8);
-        inkyPos.set((193-3)/8,(164-11)/8);
-        suePos.set((40-3)/8,(236-11)/8);
-        pinkyPos.set((40-3)/8,(75-11)/8);
-        currentPillPos.set((144-3)/8,(188-11)/8);
-        currentPowerPillPos.set((144-3)/8,(188-11)/8);
-        currentEdiblePos.set((144-3)/8,(188-11)/8);
-
-        search((96-3)/8,(163-11)/8);
-
-        for(int i = 0; i < yPills; i++) {
-            for (int j = 0; j < xPills; j++)
-                System.out.print(matrix[i][j] + " ");
-            System.out.println();
-        }
-        System.out.println();
+//
+//        blinkyPos.set((125-3)/8,(65-11)/8);
+//        inkyPos.set((193-3)/8,(164-11)/8);
+//        suePos.set((40-3)/8,(236-11)/8);
+//        pinkyPos.set((40-3)/8,(75-11)/8);
+//        currentPillPos.set((144-3)/8,(188-11)/8);
+//        currentPowerPillPos.set((144-3)/8,(188-11)/8);
+//        currentEdiblePos.set((144-3)/8,(188-11)/8);
+//
+//        search((96-3)/8,(163-11)/8);
+//
+//        for(int i = 0; i < yPills; i++) {
+//            for (int j = 0; j < xPills; j++)
+//                System.out.print(matrix[i][j] + " ");
+//            System.out.println();
+//        }
+//        System.out.println();
     }
 
 //    private static boolean validatePos2(int x, int y, int[] pix){

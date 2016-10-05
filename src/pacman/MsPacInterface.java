@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class MsPacInterface {
     // delay between each screen capture
-    static private int delay = 10;
+    static private int delay = 4;
 
     //C#
     //public static int left = 575;
@@ -89,6 +89,7 @@ public class MsPacInterface {
             int action = ms.se.gs.agent.move(ms.se.gs);
             pm.move(action);
             dc.update(action);
+            ms.se.gs.reset();
             Thread.sleep(delay);
         }
     }
