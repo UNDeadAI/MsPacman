@@ -3,25 +3,22 @@ package pacman;
 import java.awt.*;
 
 public class ConnectedSet implements Drawable {
-    int x, y;
-    int width, height;
-    int fg, xMin, xMax, yMin, yMax, pTot, tot;
-    Color c;
-    public int px, py;
+    public int x, y;
+    public int width, height;
+    public int fg, xMin, xMax, yMin, yMax, pTot, tot;
+    public Color c;
     private boolean valid = false;
 
     public ConnectedSet(int x, int y, int fg) {
         this.x = x;
         this.y = y;
-        xMin = x;
-        xMax = x;
-        yMin = y;
-        yMax = y;
+        xMin = xMax = x;
+        yMin = yMax = y;
         this.fg = fg;
         c = new Color((fg & 0xFF0000) >> 16, (fg & 0xFF00) >> 8, (fg & 0xFF));
     }
 
-    public void add(int px, int py, int pos, int val) {
+    public void add(int px, int py) {
         xMin = Math.min(px, xMin);
         xMax = Math.max(px, xMax);
         yMin = Math.min(py, yMin);
@@ -36,8 +33,6 @@ public class ConnectedSet implements Drawable {
         g.setColor(c);
         if(isPowerPill() || isPill())
             g.drawRect(xMin, yMin, width+1, height+1);
-        else if(isEdible())
-            g.fillRect(xMin, yMin, width, height);
         else
             g.fillRect(xMin, yMin, width, height);
     }
@@ -46,6 +41,8 @@ public class ConnectedSet implements Drawable {
         if (!valid) {
             width = xMax - xMin;
             height = yMax - yMin;
+            x = (xMax + xMin) / 2;
+            y = (yMax + yMin) / 2;
             valid = true;
         }
     }

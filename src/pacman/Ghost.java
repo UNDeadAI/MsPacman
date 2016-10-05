@@ -1,7 +1,5 @@
 package pacman;
 
-import games.math.Vector2d;
-
 /**
  * User: Simon
  * Date: 13-Oct-2007

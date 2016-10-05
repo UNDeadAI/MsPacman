@@ -2,17 +2,15 @@ package pacman;
 
 import java.util.*;
 
+// this will hunt through a pixel array
+// adding all the connected components to
+// itself
 
+// the background - components of this will not be created
+
+// this needs to be modified in order to keep track of existing agents,
+// rather than making a new agent every time that consume() is called
 public class SimpleExtractor {
-
-    // this will hunt through a pixel array
-    // adding all the connected components to
-    // itself
-
-    // the background - components of this will not be created
-
-    // this needs to be modified in order to keep track of existing agents,
-    // rather than making a new agent every time that consume() is called
 
     static int BG = 0;
     static int scoreColor = 14342911;
@@ -35,12 +33,12 @@ public class SimpleExtractor {
 
     public ArrayList<Drawable> consume(int[] pix, Set<Integer> colors) {
         ArrayList<Drawable> objects = new ArrayList<>();
-
+        ConnectedSet cs;
         for (int p = 0; p < pix.length; p++) {
             if ((pix[p] & 0xFFFFFF) != BG && colors.contains(pix[p])) {
-                ConnectedSet cs = consume(pix, p, pix[p]);
+                cs = consume(pix, p, pix[p]);
                 objects.add(cs);
-                gs.update(cs, pix);
+                gs.update(cs);
             }
         }
         objects.add(gs);
@@ -57,7 +55,7 @@ public class SimpleExtractor {
         while (!stack.isEmpty()) {
             p = stack.pop();
             if (pix[p] == fg) {
-                cs.add(p % w, p / w, p, pix[p]);
+                cs.add(p % w, p / w);
                 pix[p] = 0;
                 int cx = p % w;
                 int cy = p / w;
