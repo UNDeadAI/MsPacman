@@ -16,6 +16,7 @@ public class GameState implements Drawable {
             currentEdiblePos = new Vector2d(), defaultVector = new Vector2d(), blinkyEdiblePos,
             inkyEdiblePos, sueEdiblePos, pinkyEdiblePos, powerPill1Pos, powerPill2Pos, powerPill3Pos, powerPill4Pos;
 
+    private boolean powerPill1PosD, powerPill2PosD, powerPill3PosD, powerPill4PosD;
     private Vector2d[] edibles = new Vector2d[4];
     private int currentEdible;
     private boolean isBlinkyEdible, isPinkyEdible, isInkyEdible, isSueEdible;
@@ -167,31 +168,26 @@ public class GameState implements Drawable {
 
     private void updateClosestPowerPill(){
         int min = 1000;
-
         if(powerPill1Pos != null) {
             if(powerPill1Pos.w < min){
                 min = powerPill1Pos.w;
                 closestPowerPill = powerPill1Pos;
             }
         }
-
         if(powerPill2Pos != null) {
             if(powerPill2Pos.w < min){
                 min = powerPill2Pos.w;
                 closestPowerPill = powerPill2Pos;
             }
         }
-
         if(powerPill3Pos != null) {
-            if(powerPill1Pos.w < min){
-                min = powerPill1Pos.w;
-                closestPowerPill = powerPill1Pos;
+            if(powerPill3Pos.w < min){
+                min = powerPill3Pos.w;
+                closestPowerPill = powerPill3Pos;
             }
         }
-
         if(powerPill4Pos != null) {
             if(powerPill4Pos.w < min){
-                min = powerPill4Pos.w;
                 closestPowerPill = powerPill4Pos;
             }
         }
@@ -220,6 +216,22 @@ public class GameState implements Drawable {
         inkyEdiblePos = null;
         sueEdiblePos = null;
         pinkyEdiblePos = null;
+        if(powerPill1PosD)
+            powerPill1PosD = false;
+        else
+            powerPill1Pos = null;
+        if(powerPill2PosD)
+            powerPill2PosD = false;
+        else
+            powerPill2Pos = null;
+        if(powerPill3PosD)
+            powerPill3PosD = false;
+        else
+            powerPill3Pos = null;
+        if(powerPill4PosD)
+            powerPill4PosD = false;
+        else
+            powerPill4Pos = null;
     }
     public void engage(){
         setPath(MsPacInterface.searchPixels);
@@ -248,14 +260,22 @@ public class GameState implements Drawable {
         }
         else if (cs.isPowerPill()) {
             updateCurrentPowerPill(cs.x, cs.y);
-            if(powerPill1Pos == null)
-                powerPill1Pos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
-            else if(powerPill2Pos == null)
-                powerPill2Pos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
-            else if(powerPill3Pos == null)
-                powerPill3Pos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
-            else if(powerPill4Pos == null)
-                powerPill4Pos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
+            if(powerPill1Pos == null) {
+                powerPill1Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
+                powerPill1PosD = true;
+            }
+            else if(powerPill2Pos == null) {
+                powerPill2Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
+                powerPill2PosD = true;
+            }
+            else if(powerPill3Pos == null) {
+                powerPill3Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
+                powerPill3PosD = true;
+            }
+            else if(powerPill4Pos == null) {
+                powerPill4Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
+                powerPill4PosD = true;
+            }
         }
         else if(cs.isEdible()){
             if(blinkyEdiblePos == null)

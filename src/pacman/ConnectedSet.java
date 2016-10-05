@@ -98,6 +98,12 @@ public class ConnectedSet implements Drawable {
         return width == 1 && height == 1 && fg == MsPacInterface.pill;
     }
 
+    public boolean isCherry() {
+        validate();
+        return MsPacInterface.blinky == fg && width == 5 && height == 5;
+        // return width == 13 && height == 13; // fg == MsPacInterface.inky;
+    }
+
     public boolean isPowerPill() {
         validate();
         return width == 7 && height == 7 && fg == MsPacInterface.pill;
