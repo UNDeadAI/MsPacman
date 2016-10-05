@@ -18,32 +18,32 @@ public class Hola {
     private static boolean validatePos2(int x, int y, int[] pix){
         x = x*8+11;
         y = y*8+3;
-        int a = x*MsPacInterface.width + y;
-        if(pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+        int a = x*width + y;
+        if(pix[a] != b && (pix[a] == MsPacInterface.blinky || (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a]))))
             return false;
         x = x+8;
         if(x < height) {
-            a = x*MsPacInterface.width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
                 return false;
         }
         x = x - 14;
         if(x >= 0) {
-            a = x*MsPacInterface.width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
                 return false;
         }
         x = x + 6;
         y = y + 8;
         if(y < width) {
-            a = x*MsPacInterface.width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
                 return false;
         }
         y = y - 14;
         if(y >= 0) {
-            a = x*MsPacInterface.width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
                 return false;
         }
         return true;
@@ -52,32 +52,32 @@ public class Hola {
     private static boolean validatePos(int x, int y, int[] pix){
         x = x*8+12;
         y = y*8+4;
-        int a = x*MsPacInterface.width + y;
-        if(pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+        int a = x*width + y;
+        if(pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
             return false;
         x = x+7;
         if(x < height) {
-            a = x*MsPacInterface.width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
                 return false;
         }
         x = x - 14;
         if(x >= 0) {
-            a = x*MsPacInterface.width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
                 return false;
         }
         x = x + 7;
         y = y + 7;
         if(y < width) {
-            a = x*MsPacInterface.width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
                 return false;
         }
         y = y - 14;
         if(y >= 0) {
-            a = x*MsPacInterface.width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
                 return false;
         }
         return true;
@@ -94,7 +94,7 @@ public class Hola {
             for (int j = 0; j < xPills; j++) {
                 if(validatePos(i, j, pixels) && validatePos2(i, j, pixels))
                     matrix[i][j] = 1;
-                //if(pixels[(i*8+12)*width + (j*8+4)] == -2565892)
+                //if(pixels[(i*8+11)*width + (j*8+3)] == MsPacInterface.pill)
                     //matrix[i][j] = 1;
             }
         }
@@ -106,4 +106,72 @@ public class Hola {
         }
         System.out.println();
     }
+
+//    private static boolean validatePos2(int x, int y, int[] pix){
+//        x = x*8+11;
+//        y = y*8+3;
+//        int a = x*width + y;
+//        if(pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//            return false;
+//        x = x+8;
+//        if(x < height) {
+//            a = x*width + y;
+//            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//                return false;
+//        }
+//        x = x - 14;
+//        if(x >= 0) {
+//            a = x*width + y;
+//            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//                return false;
+//        }
+//        x = x + 6;
+//        y = y + 8;
+//        if(y < width) {
+//            a = x*width + y;
+//            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//                return false;
+//        }
+//        y = y - 14;
+//        if(y >= 0) {
+//            a = x*width + y;
+//            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//                return false;
+//        }
+//        return true;
+//    }
+//
+//    private static boolean validatePos(int x, int y, int[] pix){
+//        x = x*8+12;
+//        y = y*8+4;
+//        int a = x*width + y;
+//        if(pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//            return false;
+//        x = x+7;
+//        if(x < height) {
+//            a = x*width + y;
+//            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//                return false;
+//        }
+//        x = x - 14;
+//        if(x >= 0) {
+//            a = x*width + y;
+//            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//                return false;
+//        }
+//        x = x + 7;
+//        y = y + 7;
+//        if(y < width) {
+//            a = x*width + y;
+//            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//                return false;
+//        }
+//        y = y - 14;
+//        if(y >= 0) {
+//            a = x*width + y;
+//            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
+//                return false;
+//        }
+//        return true;
+//    }
 }

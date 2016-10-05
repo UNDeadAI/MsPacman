@@ -31,74 +31,6 @@ public class GameState implements Drawable {
         tmp = new Vector2d();
     }
 
-    private static boolean validatePos2(int x, int y, int[] pix){
-        x = x*8+11;
-        y = y*8+3;
-        int a = x*width + y;
-        if(pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-            return false;
-        x = x+8;
-        if(x < height) {
-            a = x*width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-                return false;
-        }
-        x = x - 14;
-        if(x >= 0) {
-            a = x*width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-                return false;
-        }
-        x = x + 6;
-        y = y + 8;
-        if(y < width) {
-            a = x*width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-                return false;
-        }
-        y = y - 14;
-        if(y >= 0) {
-            a = x*width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-                return false;
-        }
-        return true;
-    }
-
-    private static boolean validatePos(int x, int y, int[] pix){
-        x = x*8+12;
-        y = y*8+4;
-        int a = x*width + y;
-        if(pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-            return false;
-        x = x+7;
-        if(x < height) {
-            a = x*width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-                return false;
-        }
-        x = x - 14;
-        if(x >= 0) {
-            a = x*width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-                return false;
-        }
-        x = x + 7;
-        y = y + 7;
-        if(y < width) {
-            a = x*width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-                return false;
-        }
-        y = y - 14;
-        if(y >= 0) {
-            a = x*width + y;
-            if (pix[a] != b && !MsPacInterface.colors.contains(pix[a]))
-                return false;
-        }
-        return true;
-    }
-
     public void search(int tXPos, int tYPos){
         for(int i = 0; i < yPills; i++)
             for (int j = 0; j < xPills; j++)
@@ -157,6 +89,74 @@ public class GameState implements Drawable {
 //            System.out.println();
 //        }
 //        System.out.println();
+    }
+
+    private static boolean validatePos2(int x, int y, int[] pix){
+        x = x*8+11;
+        y = y*8+3;
+        int a = x*width + y;
+        if(pix[a] != b && (pix[a] == MsPacInterface.blinky || (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a]))))
+            return false;
+        x = x+8;
+        if(x < height) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        x = x - 14;
+        if(x >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        x = x + 6;
+        y = y + 8;
+        if(y < width) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        y = y - 14;
+        if(y >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        return true;
+    }
+
+    private static boolean validatePos(int x, int y, int[] pix){
+        x = x*8+12;
+        y = y*8+4;
+        int a = x*width + y;
+        if(pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+            return false;
+        x = x+7;
+        if(x < height) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        x = x - 14;
+        if(x >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        x = x + 7;
+        y = y + 7;
+        if(y < width) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        y = y - 14;
+        if(y >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        return true;
     }
 
     public void eatSuperPowerPill(){

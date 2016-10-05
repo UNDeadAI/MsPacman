@@ -11,16 +11,14 @@ public class MsPacInterface {
     static private int delay = 9;
 
     //C#
-    public static int left = 575;
-    public static int top = 246;
+    //public static int left = 575;
+    //public static int top = 246;
 
-    //private static int left = 571;
-    //private static int top = 285;
+    public static int left = 571;
+    public static int top = 285;
 
     public static int width = 224;
     public static int height = 248;
-    //public static int width = 224;
-    //public static int height = 248;
 
     public static int[] pixels;
     private Robot robot;
@@ -28,19 +26,19 @@ public class MsPacInterface {
     private SimpleDisplay sd;
 
 //  CSharp app colors
-    static int pinky = -18210;
-    static int inky = -16711714;
-    static int sue = -18361;
-    static int edible = -14605858;
-    static int pill = -2565892;
+//    static int pinky = -18210;
+//    static int inky = -16711714;
+//    static int sue = -18361;
+//    static int edible = -14605858;
+//    public static int pill = -2565892;
 
-    //static int pinky = -18689;
-    //static int inky = -16711681;
-    //static int sue = -18859;
-    //static int edible = -14408449;
-    //static int pill = -2434305;
+    static int pinky = -18689;
+    static int inky = -16711681;
+    static int sue = -18859;
+    static int edible = -14408449;
+    public static int pill = -2434305;
 
-    static int blinky = -65536;
+    public static int blinky = -65536;
     static int pacMan = -256;
 
     //static int cherry = -7252651;
