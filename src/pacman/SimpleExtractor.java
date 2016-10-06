@@ -13,13 +13,10 @@ import java.util.*;
 public class SimpleExtractor {
 
     static int BG = 0;
-    static int scoreColor = 14342911;
-    static int powers = 0;
 
     int w, h;
     IntStack stack;
     HashSet uniques;
-    // Agent agent;
     GameState gs;
 
     public SimpleExtractor(int w, int h) {

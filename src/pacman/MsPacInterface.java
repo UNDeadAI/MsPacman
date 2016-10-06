@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class MsPacInterface {
     // delay between each screen capture
-    static private int delay = 9;
+    static private int delay = 10;
 
     //C#
     //public static int left = 575;
@@ -20,7 +20,8 @@ public class MsPacInterface {
     public static int width = 224;
     public static int height = 248;
 
-    public static int[] pixels;
+    public static int[] pixels = new int[width*height];
+    public static int[] searchPixels = new int[width*height];
     private Robot robot;
     private SimpleExtractor se;
     private SimpleDisplay sd;
@@ -70,10 +71,11 @@ public class MsPacInterface {
         sd.updateObjects(al);
     }
 
-    public int[] getPixels() {
+    public void getPixels() {
         BufferedImage im = robot.createScreenCapture(new Rectangle(left, top, width, height));
         im.getRGB(0, 0, width, height, pixels, 0, width);
-        return pixels;
+        System.arraycopy(pixels, 0, searchPixels, 0, width*height);
+        //return pixels;
     }
 
     public static void main(String[] args) throws Exception {
@@ -82,9 +84,9 @@ public class MsPacInterface {
         DirectionComponent dc = DirectionComponent.easyUse();
 
         while(true) {
-            int[] pix = ms.getPixels();
-            ms.analyseComponents(pix);
-            int action = ms.se.gs.agent.move2(ms.se.gs);
+            ms.getPixels();
+            ms.analyseComponents(pixels);
+            int action = ms.se.gs.agent.move(ms.se.gs);
             pm.move(action);
             dc.update(action);
             Thread.sleep(delay);

@@ -23,12 +23,43 @@ public class GameState implements Drawable {
     static int b = -16777216;
 
     public static int matrix[][] = new int[yPills][xPills]; //positions of the pills, in pixels is i = i*8+3, j = j*8+11
+    public static int path[][] = new int[yPills][xPills];
     private static int DR[] = {0, 1, 0, -1};
     private static int DC[] = {1, 0, -1, 0};
 
     public GameState() {
         agent = new Agent();
         tmp = new Vector2d();
+    }
+
+    private int pathlimit = 324;
+
+    public void setPath(int [] pix){
+        int count = 0;
+        for(int i = 0; i < yPills; i++) {
+            for (int j = 0; j < xPills; j++) {
+                if (path[i][j] == 1){
+                    count++;
+                }
+                else if(validatePos(i, j, pix) && validatePos2(i, j, pix)) {
+                    path[i][j] = 1;
+                    count++;
+                }
+            }
+        }
+        if(count > pathlimit) {
+            for (int i = 0; i < yPills; i++)
+                for (int j = 0; j < xPills; j++)
+                    path[i][j] = 0;
+            //setPath(pix);
+        }
+//        System.out.println("Path");
+//        for(int i = 0; i < yPills; i++) {
+//            for (int j = 0; j < xPills; j++)
+//                System.out.print(path[i][j] + " ");
+//            System.out.println();
+//        }
+//        System.out.println();
     }
 
     public void search(int tXPos, int tYPos){
@@ -53,7 +84,7 @@ public class GameState implements Drawable {
                         tmp2 = xPills - 1;
                     if(matrix[tmp1][tmp2] == 0){
                         matrix[tmp1][tmp2] = 1;
-                        if(validatePos(tmp1, tmp2, MsPacInterface.pixels) && validatePos2(tmp1, tmp2, MsPacInterface.pixels)) {
+                        if(path[tmp1][tmp2] == 1){
                             child = new Node(tmp1, tmp2, u.weight + 1);
                             if (u.dir == -1)
                                 child.dir = i+1;
@@ -83,80 +114,14 @@ public class GameState implements Drawable {
                 }
             }
         }
+
+//        System.out.println("BFS");
 //        for(int i = 0; i < yPills; i++) {
 //            for (int j = 0; j < xPills; j++)
 //                System.out.print(matrix[i][j] + " ");
 //            System.out.println();
 //        }
 //        System.out.println();
-    }
-
-    private static boolean validatePos2(int x, int y, int[] pix){
-        x = x*8+11;
-        y = y*8+3;
-        int a = x*width + y;
-        if(pix[a] != b && (pix[a] == MsPacInterface.blinky || (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a]))))
-            return false;
-        x = x+8;
-        if(x < height) {
-            a = x*width + y;
-            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-                return false;
-        }
-        x = x - 14;
-        if(x >= 0) {
-            a = x*width + y;
-            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-                return false;
-        }
-        x = x + 6;
-        y = y + 8;
-        if(y < width) {
-            a = x*width + y;
-            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-                return false;
-        }
-        y = y - 14;
-        if(y >= 0) {
-            a = x*width + y;
-            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-                return false;
-        }
-        return true;
-    }
-
-    private static boolean validatePos(int x, int y, int[] pix){
-        x = x*8+12;
-        y = y*8+4;
-        int a = x*width + y;
-        if(pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-            return false;
-        x = x+7;
-        if(x < height) {
-            a = x*width + y;
-            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-                return false;
-        }
-        x = x - 14;
-        if(x >= 0) {
-            a = x*width + y;
-            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-                return false;
-        }
-        x = x + 7;
-        y = y + 7;
-        if(y < width) {
-            a = x*width + y;
-            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-                return false;
-        }
-        y = y - 14;
-        if(y >= 0) {
-            a = x*width + y;
-            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
-                return false;
-        }
-        return true;
     }
 
     public void eatSuperPowerPill(){
@@ -216,6 +181,7 @@ public class GameState implements Drawable {
     public void update(ConnectedSet cs) {
         if (cs.isPacMan()) {
             agent.updatePosition(cs);
+            setPath(MsPacInterface.searchPixels);
             search(agent.x, agent.y);
             //agent.update(cs, pix);
         }
@@ -241,7 +207,7 @@ public class GameState implements Drawable {
         }
         else if (cs.isPill()) {
             updateCurrentPill(cs.x, cs.y);
-            //search(agent.x, agent.y);
+            search(agent.x, agent.y);
         }
         else if (cs.isPowerPill()) {
             updateCurrentPowerPill(cs.x, cs.y);
@@ -330,7 +296,72 @@ public class GameState implements Drawable {
         }
     }
 
-    public void reset() {
-        closestPill = null;
+    private static int dw = 6;
+    private static boolean validatePos2(int x, int y, int[] pix){
+        x = x*8+11;
+        y = y*8+3;
+        int a = x*width + y;
+        if(pix[a] != b && (pix[a] == MsPacInterface.blinky || (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a]))))
+            return false;
+        x = x + dw + 2;
+        if(x < height) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        x = x - dw - 2 - dw;
+        if(x >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        x = x + dw;
+        y = y + dw + 2;
+        if(y < width) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        y = y - dw - 2 -dw;
+        if(y >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        return true;
+    }
+
+    private static boolean validatePos(int x, int y, int[] pix){
+        x = x*8+12;
+        y = y*8+4;
+        int a = x*width + y;
+        if(pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+            return false;
+        x = x + dw + 1;
+        if(x < height) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        x = x - dw - 1 - dw - 1;
+        if(x >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        x = x + dw + 1;
+        y = y + dw + 1;
+        if(y < width) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        y = y - dw - 1 - dw -1;
+        if(y >= 0) {
+            a = x*width + y;
+            if (pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
+                return false;
+        }
+        return true;
     }
 }
