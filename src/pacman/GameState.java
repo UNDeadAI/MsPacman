@@ -14,7 +14,7 @@ public class GameState implements Drawable {
             inkyPos = new Vector2d(), suePos = new Vector2d(), pinkyPos = new Vector2d(),
             currentObjective = new Vector2d(), tmp, currentPowerPillPos = new Vector2d(), currentPillPos = new Vector2d(),
             currentEdiblePos = new Vector2d(), defaultVector = new Vector2d(), blinkyEdiblePos,
-            inkyEdiblePos, sueEdiblePos, pinkyEdiblePos;
+            inkyEdiblePos, sueEdiblePos, pinkyEdiblePos, powerPill1Pos, powerPill2Pos, powerPill3Pos, powerPill4Pos;
 
     private Vector2d[] edibles = new Vector2d[4];
     private int currentEdible;
@@ -105,8 +105,18 @@ public class GameState implements Drawable {
                             } else if (pinkyPos.equals(vector)) {
                                 pinkyPos.w = vector.w;
                                 updateClosestGhost();
-                            } else if (currentPowerPillPos.equals(vector)) {
-                                updateClosestPowerPill(vector);
+                            } else if (powerPill1Pos != null && powerPill1Pos.equals(vector)) {
+                                powerPill1Pos.updateVector(child);
+                                updateClosestPowerPill();
+                            }else if (powerPill2Pos != null && powerPill2Pos.equals(vector)) {
+                                powerPill2Pos.updateVector(child);
+                                updateClosestPowerPill();
+                            }else if (powerPill3Pos != null && powerPill3Pos.equals(vector)) {
+                                powerPill3Pos.updateVector(child);
+                                updateClosestPowerPill();
+                            }else if (powerPill4Pos != null && powerPill4Pos.equals(vector)) {
+                                powerPill4Pos.updateVector(child);
+                                updateClosestPowerPill();
                             } else if (MsPacInterface.searchPixels[(tmp1*8+11)*width + (tmp2*8+3)] == MsPacInterface.pill) {
                                 updateClosestPill(vector);
                             } else if (blinkyEdiblePos != null && blinkyEdiblePos.equals(vector)){
@@ -155,17 +165,36 @@ public class GameState implements Drawable {
         currentPowerPillPos.set(x, y);
     }
 
-    private void updateClosestPowerPill(Vector2d v){
-        if(closestPowerPill == null)
-            closestPowerPill = new Vector2d(v);
-        else if(v.w <= closestPowerPill.w)
-            closestPowerPill.set(v);
-    }
+    private void updateClosestPowerPill(){
+        int min = 1000;
 
-    private void updateCurrentPill(int x , int y){
-        x = (x-3) / 8;
-        y = (y-11) / 8;
-        currentPillPos.set(x, y);
+        if(powerPill1Pos != null) {
+            if(powerPill1Pos.w < min){
+                min = powerPill1Pos.w;
+                closestPowerPill = powerPill1Pos;
+            }
+        }
+
+        if(powerPill2Pos != null) {
+            if(powerPill2Pos.w < min){
+                min = powerPill2Pos.w;
+                closestPowerPill = powerPill2Pos;
+            }
+        }
+
+        if(powerPill3Pos != null) {
+            if(powerPill1Pos.w < min){
+                min = powerPill1Pos.w;
+                closestPowerPill = powerPill1Pos;
+            }
+        }
+
+        if(powerPill4Pos != null) {
+            if(powerPill4Pos.w < min){
+                min = powerPill4Pos.w;
+                closestPowerPill = powerPill4Pos;
+            }
+        }
     }
 
     private void updateClosestPill(Vector2d v){
@@ -217,12 +246,16 @@ public class GameState implements Drawable {
             isPinkyEdible = false;
             updateGhost(pinkyPos, cs.x, cs.y);
         }
-        //else if (cs.isPill()) {
-        //updateCurrentPill(cs.x, cs.y);
-        //search(agent.x, agent.y);
-        //}
         else if (cs.isPowerPill()) {
             updateCurrentPowerPill(cs.x, cs.y);
+            if(powerPill1Pos == null)
+                powerPill1Pos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
+            else if(powerPill2Pos == null)
+                powerPill2Pos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
+            else if(powerPill3Pos == null)
+                powerPill3Pos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
+            else if(powerPill4Pos == null)
+                powerPill4Pos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
         }
         else if(cs.isEdible()){
             if(blinkyEdiblePos == null)

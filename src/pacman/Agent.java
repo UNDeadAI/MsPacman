@@ -66,10 +66,16 @@ public class Agent implements PacAgent, Constants {
             move = gs.closestEdible.dir;
             gs.setCurrentObjective(gs.closestEdible);
         }
+        else if(gs.closestPowerPill != null){
+            move = gs.closestPowerPill.dir;
+            gs.setCurrentObjective(gs.closestPowerPill);
+
+        }
         else if(gs.closestPill != null) {
             move = gs.closestPill.dir;
             gs.setCurrentObjective(gs.closestPill);
         }
+      
         return move;
     }
 //static int pill = MsPacInterface.pill & 0xFFFFFF;
