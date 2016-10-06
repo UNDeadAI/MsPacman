@@ -38,9 +38,11 @@ public class MsPacInterface {
     static int sue = -18859;
     static int edible = -14408449;
     public static int pill = -2434305;
+    static int edible2 = -2434305;
 
     public static int blinky = -65536;
     static int pacMan = -256;
+
 
     //static int cherry = -7252651;
     //static int strawberry = -16711936;

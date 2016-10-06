@@ -2,6 +2,7 @@ package pacman;
 
 import java.util.ArrayDeque;
 import java.awt.*;
+import java.util.Hashtable;
 
 
 public class GameState implements Drawable {
@@ -15,6 +16,7 @@ public class GameState implements Drawable {
             currentObjective = new Vector2d(), tmp, currentPowerPillPos = new Vector2d(), currentPillPos = new Vector2d(),
             currentEdiblePos = new Vector2d(), defaultVector = new Vector2d(), blinkyEdiblePos,
             inkyEdiblePos, sueEdiblePos, pinkyEdiblePos, powerPill1Pos, powerPill2Pos, powerPill3Pos, powerPill4Pos;
+
 
     private boolean powerPill1PosD, powerPill2PosD, powerPill3PosD, powerPill4PosD;
     private Vector2d[] edibles = new Vector2d[4];
@@ -53,12 +55,12 @@ public class GameState implements Drawable {
                 }
             }
         }
-//        for(int i = 0; i < yPills; i++) {
-//            for (int j = 0; j < xPills; j++)
-//                System.out.print(path[i][j] + " ");
-//            System.out.println();
-//        }
-//        System.out.println();
+        for(int i = 0; i < yPills; i++) {
+            for (int j = 0; j < xPills; j++)
+                System.out.print(path[i][j] + " ");
+            System.out.println();
+        }
+        System.out.println();
     }
 
     private static int DR[] = {-1, 0, 1, 0};
@@ -72,6 +74,7 @@ public class GameState implements Drawable {
         ArrayDeque<Node> queue = new ArrayDeque<>();
         Node u, child;
         Vector2d vector;
+        Hashtable<Node, Node> parent = new Hashtable<>();
         queue.add(new Node(tYPos, tXPos));
         int tmp1, tmp2;
         while(!queue.isEmpty()){
@@ -88,6 +91,7 @@ public class GameState implements Drawable {
                         matrix[tmp1][tmp2] = 1;
                         if(path[tmp1][tmp2] == 1){
                             child = new Node(tmp1, tmp2, u.weight + 1);
+                            parent.put(u,child);
                             if (u.dir == 0)
                                 child.dir = i+1;
                             else
