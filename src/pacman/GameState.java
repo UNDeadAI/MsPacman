@@ -2,6 +2,7 @@ package pacman;
 
 import java.util.ArrayDeque;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 
@@ -26,6 +27,8 @@ public class GameState implements Drawable {
     static int height = MsPacInterface.height;
     static int b = -16777216;
 
+    public ArrayList<Pair<Integer,Integer>> nodes;
+
     public static int matrix[][] = new int[yPills][xPills]; //positions of the pills, in pixels is i = i*8+3, j = j*8+11
     public static int path[][] = new int[yPills][xPills];
 
@@ -36,7 +39,7 @@ public class GameState implements Drawable {
 
     private int pathlimit = 324;
     private int count;
-    public void setPath(int [] pix){
+    public void setPath(int [] pix, boolean flag){
 
         if(count > pathlimit) {
             for (int i = 0; i < yPills; i++)
@@ -44,48 +47,62 @@ public class GameState implements Drawable {
                     path[i][j] = 0;
         }
         count = 0;
+        int x, y, a;
         for(int i = 0; i < yPills; i++) {
             for (int j = 0; j < xPills; j++) {
-                if (path[i][j] == 1){
+                x = i*8+11;
+                y = j*8+3;
+                a = x * width + y;
+                if (path[i][j] == 1) {
                     count++;
                 }
                 else if(validatePos(i, j, pix) && validatePos2(i, j, pix)) {
-                    path[i][j] = 1;
-                    count++;
+                    if(pix[a] == MsPacInterface.pinky)
+                        path[i][j] = 5;
+                    else if(pix[a] == MsPacInterface.blinky)
+                        path[i][j] = 6;
+                    else if(pix[a] == MsPacInterface.sue)
+                        path[i][j] = 7;
+                    else if(pix[a] == MsPacInterface.inky)
+                        path[i][j] = 8;
+                    else if(pix[a] == MsPacInterface.pill)
+                        path[i][j] = 2;
+                    else
+                        path[i][j] = 1;
                 }
             }
         }
-        /*for(int i = 0; i < yPills; i++) {
+        for(int i = 0; i < yPills; i++) {
             for (int j = 0; j < xPills; j++)
                 System.out.print(path[i][j] + " ");
             System.out.println();
-        }*/
+        }
         System.out.println();
-        int cnt = 0;
-        for(int i = 0; i < yPills; i++) {
-            for (int j = 0; j < xPills; j++){
-                int count = 0;
-                if(path[i][j] == 1){
-                    if(i > 0 && path[i-1][j] == 1){
-                        count += 1;
-                    }
-                    if(j > 0 && path[i][j-1] == 1){
-                        count += 1;
-                    }
-                    if(i < yPills - 1 && path[i+1][j] == 1){
-                        count += 1;
-                    }
-                    if(j < xPills - 1 && path[i][j+1] == 1){
-                        count += 1;
-                    }
-                    if(count >= 3){
-                        cnt += 1;
-                        System.out.println(i+" "+j);
+        if(!flag) {
+            for (int i = 0; i < yPills; i++) {
+                for (int j = 0; j < xPills; j++) {
+                    int cnt = 0;
+                    if (path[i][j] == 1) {
+                        if (i > 0 && path[i - 1][j] == 1) {
+                            cnt += 1;
+                        }
+                        if (j > 0 && path[i][j - 1] == 1) {
+                            cnt += 1;
+                        }
+                        if (i < yPills - 1 && path[i + 1][j] == 1) {
+                            cnt += 1;
+                        }
+                        if (j < xPills - 1 && path[i][j + 1] == 1) {
+                            cnt += 1;
+                        }
+                        if (cnt >= 3) {
+                            cnt += 1;
+                            //nodes.add(new Pair(i, j));
+                        }
                     }
                 }
             }
         }
-        System.out.println(cnt);
     }
 
     private static int DR[] = {-1, 0, 1, 0};
@@ -114,7 +131,7 @@ public class GameState implements Drawable {
                         tmp2 = xPills - 1;
                     if(matrix[tmp1][tmp2] == 0){
                         matrix[tmp1][tmp2] = 1;
-                        if(path[tmp1][tmp2] == 1){
+                        if(path[tmp1][tmp2] >= 1){
                             child = new Node(tmp1, tmp2, u.weight + 1);
                             parent.put(u,child);
                             if (u.dir == 0)
@@ -263,8 +280,10 @@ public class GameState implements Drawable {
             powerPill4Pos = null;
     }
     public void engage(){
-        setPath(MsPacInterface.searchPixels);
+        boolean flag = false;
+        setPath(MsPacInterface.searchPixels, flag);
         search(agent.x, agent.y);
+        flag = true;
     }
 
     public void update(ConnectedSet cs) {
