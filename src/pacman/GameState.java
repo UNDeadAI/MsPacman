@@ -55,12 +55,37 @@ public class GameState implements Drawable {
                 }
             }
         }
-        for(int i = 0; i < yPills; i++) {
+        /*for(int i = 0; i < yPills; i++) {
             for (int j = 0; j < xPills; j++)
                 System.out.print(path[i][j] + " ");
             System.out.println();
-        }
+        }*/
         System.out.println();
+        int cnt = 0;
+        for(int i = 0; i < yPills; i++) {
+            for (int j = 0; j < xPills; j++){
+                int count = 0;
+                if(path[i][j] == 1){
+                    if(i > 0 && path[i-1][j] == 1){
+                        count += 1;
+                    }
+                    if(j > 0 && path[i][j-1] == 1){
+                        count += 1;
+                    }
+                    if(i < yPills - 1 && path[i+1][j] == 1){
+                        count += 1;
+                    }
+                    if(j < xPills - 1 && path[i][j+1] == 1){
+                        count += 1;
+                    }
+                    if(count >= 3){
+                        cnt += 1;
+                        System.out.println(i+" "+j);
+                    }
+                }
+            }
+        }
+        System.out.println(cnt);
     }
 
     private static int DR[] = {-1, 0, 1, 0};

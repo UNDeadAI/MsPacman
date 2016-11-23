@@ -10,12 +10,22 @@ public class MsPacInterface {
     // delay between each screen capture
     static private int delay = 4;
 
-    //C#
-    //public static int left = 575;
-    //public static int top = 246;
+    //VIDEOBEAM
+    //public static int left = 528;
+    //public static int top = 261;
 
+    //WINDOWS
+    //public static int left = 571;
+    //public static int top = 285;
+
+    //UBUNTU
     public static int left = 571;
-    public static int top = 285;
+    public static int top = 311;
+
+    //ALVARO
+    //public static int left = 67;
+    //public static int top = 97;
+
 
     public static int width = 224;
     public static int height = 248;
