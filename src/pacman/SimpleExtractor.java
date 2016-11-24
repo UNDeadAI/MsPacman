@@ -2,14 +2,6 @@ package pacman;
 
 import java.util.*;
 
-// this will hunt through a pixel array
-// adding all the connected components to
-// itself
-
-// the background - components of this will not be created
-
-// this needs to be modified in order to keep track of existing agents,
-// rather than making a new agent every time that consume() is called
 public class SimpleExtractor {
 
     static int BG = 0;

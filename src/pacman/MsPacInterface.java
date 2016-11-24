@@ -10,7 +10,7 @@ public class MsPacInterface {
     // delay between each screen capture
     static private int delay = 4;
 
-    //VIDEOBEAM
+    //VIDEOBEAM Windows
     //public static int left = 528;
     //public static int top = 261;
 
@@ -18,14 +18,17 @@ public class MsPacInterface {
     //public static int left = 571;
     //public static int top = 285;
 
-    //UBUNTU
-    public static int left = 571;
-    public static int top = 311;
-
     //ALVARO
     //public static int left = 67;
     //public static int top = 97;
 
+    //UBUNTU
+    public static int left = 571;
+    public static int top = 311;
+
+    //Ubuntu videobeam
+    //public static int left = 571;
+    //public static int top = 339;
 
     public static int width = 224;
     public static int height = 248;
@@ -36,13 +39,6 @@ public class MsPacInterface {
     private SimpleExtractor se;
     private SimpleDisplay sd;
 
-//  CSharp app colors
-//    static int pinky = -18210;
-//    static int inky = -16711714;
-//    static int sue = -18361;
-//    static int edible = -14605858;
-//    public static int pill = -2565892;
-
     static int pinky = -18689;
     static int inky = -16711681;
     static int sue = -18859;
@@ -52,7 +48,6 @@ public class MsPacInterface {
 
     public static int blinky = -65536;
     static int pacMan = -256;
-
 
     //static int cherry = -7252651;
     //static int strawberry = -16711936;

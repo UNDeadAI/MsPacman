@@ -77,56 +77,32 @@ public class ConnectedSet implements Drawable {
             if(fg == MsPacInterface.sue)
                 return true;
         return false;
-        // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
     public boolean isEdible() {
         validate();
         return MsPacInterface.edible == fg && width >= 10 && height >= 10;
-        // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
     public boolean isPacMan() {
         validate();
         return fg == MsPacInterface.pacMan && width >= 10 && height >= 10;
-        // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
     public boolean isPill() {
         validate();
-        //return between(width, 2, 3) && between(height, 2, 3);
         return width == 1 && height == 1 && fg == MsPacInterface.pill;
     }
 
     public boolean isCherry() {
         validate();
         return MsPacInterface.blinky == fg && width == 5 && height == 5;
-        // return width == 13 && height == 13; // fg == MsPacInterface.inky;
     }
 
     public boolean isPowerPill() {
         validate();
         return width == 7 && height == 7 && fg == MsPacInterface.pill;
-        //return between(width, 2, 7) && between(height, 2, 7);
     }
-//    public boolean isCherry(){
-//        validate();
-//        return fg == MsPacInterface.cherry && width <= 3 && height  <= 4;
-//    }
-
-    public static boolean between(int x, int low, int high) {
-        return x >= low && x <= high;
-    }
-
-    public int x() {
-        return xMin + (xMax - xMin) / 2;
-    }
-
-    public int y() {
-        return yMin + (yMax - yMin) / 2;
-    }
-
-    public void rescale(double fac) {}
 
     public int hashCode() {
         return pTot;
@@ -139,9 +115,5 @@ public class ConnectedSet implements Drawable {
 
     public String toString() {
         return x + " : " + y + " : " + pTot;
-    }
-
-    public static int sqr(int x) {
-        return x * x;
     }
 }

@@ -19,32 +19,32 @@ public class GameState implements Drawable {
             inkyEdiblePos, sueEdiblePos, pinkyEdiblePos, powerPill1Pos, powerPill2Pos, powerPill3Pos, powerPill4Pos;
 
 
-    private boolean powerPill1PosD, powerPill2PosD, powerPill3PosD, powerPill4PosD;
-    private Vector2d[] edibles = new Vector2d[4];
-    private int currentEdible;
-    private boolean isBlinkyEdible, isPinkyEdible, isInkyEdible, isSueEdible;
-    static int width = MsPacInterface.width;
-    static int height = MsPacInterface.height;
-    static int b = -16777216;
+    private int powerPill1PosD, powerPill2PosD, powerPill3PosD, powerPill4PosD;
+    private static int width = MsPacInterface.width;
+    private static int height = MsPacInterface.height;
+    private static int b = -16777216;
+    private boolean firstTime = true;
 
-    public ArrayList<Pair<Integer,Integer>> nodes;
+    public ArrayList<Pair> nodes = new ArrayList<>();
 
-    public static int matrix[][] = new int[yPills][xPills]; //positions of the pills, in pixels is i = i*8+3, j = j*8+11
-    public static int path[][] = new int[yPills][xPills];
+    static int matrix[][] = new int[yPills][xPills]; //positions of the pills, in pixels is i = i*8+3, j = j*8+11
+    static int path[][] = new int[yPills][xPills];
 
     public GameState() {
         agent = new Agent();
         tmp = new Vector2d();
     }
 
-    private int pathlimit = 324;
     private int count;
-    public void setPath(int [] pix, boolean flag){
 
+    public void setPath(int [] pix){
+
+        int pathlimit = 324;
         if(count > pathlimit) {
             for (int i = 0; i < yPills; i++)
                 for (int j = 0; j < xPills; j++)
                     path[i][j] = 0;
+            nodes.clear();
         }
         count = 0;
         int x, y, a;
@@ -70,6 +70,24 @@ public class GameState implements Drawable {
                     else
                         path[i][j] = 1;
                 }
+                int cnt = 0;
+                if (path[i][j] == 1) {
+                    if (i > 0 && path[i - 1][j] == 1) {
+                        cnt += 1;
+                    }
+                    if (j > 0 && path[i][j - 1] == 1) {
+                        cnt += 1;
+                    }
+                    if (i < yPills - 1 && path[i + 1][j] == 1) {
+                        cnt += 1;
+                    }
+                    if (j < xPills - 1 && path[i][j + 1] == 1) {
+                        cnt += 1;
+                    }
+                    if (cnt >= 3) {
+                        nodes.add(new Pair(i, j));
+                    }
+                }
             }
         }
         for(int i = 0; i < yPills; i++) {
@@ -78,31 +96,6 @@ public class GameState implements Drawable {
             System.out.println();
         }
         System.out.println();
-        if(!flag) {
-            for (int i = 0; i < yPills; i++) {
-                for (int j = 0; j < xPills; j++) {
-                    int cnt = 0;
-                    if (path[i][j] == 1) {
-                        if (i > 0 && path[i - 1][j] == 1) {
-                            cnt += 1;
-                        }
-                        if (j > 0 && path[i][j - 1] == 1) {
-                            cnt += 1;
-                        }
-                        if (i < yPills - 1 && path[i + 1][j] == 1) {
-                            cnt += 1;
-                        }
-                        if (j < xPills - 1 && path[i][j + 1] == 1) {
-                            cnt += 1;
-                        }
-                        if (cnt >= 3) {
-                            cnt += 1;
-                            //nodes.add(new Pair(i, j));
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private static int DR[] = {-1, 0, 1, 0};
@@ -262,28 +255,28 @@ public class GameState implements Drawable {
         inkyEdiblePos = null;
         sueEdiblePos = null;
         pinkyEdiblePos = null;
-        if(powerPill1PosD)
-            powerPill1PosD = false;
+
+        if(powerPill1PosD > 0)
+            powerPill1PosD -= 1;
         else
             powerPill1Pos = null;
-        if(powerPill2PosD)
-            powerPill2PosD = false;
+        if(powerPill2PosD > 0)
+            powerPill2PosD -= 1;
         else
             powerPill2Pos = null;
-        if(powerPill3PosD)
-            powerPill3PosD = false;
+        if(powerPill3PosD > 0)
+            powerPill3PosD -= 1;
         else
             powerPill3Pos = null;
-        if(powerPill4PosD)
-            powerPill4PosD = false;
+        if(powerPill4PosD > 0)
+            powerPill4PosD -= 1;
         else
             powerPill4Pos = null;
     }
+
     public void engage(){
-        boolean flag = false;
-        setPath(MsPacInterface.searchPixels, flag);
+        setPath(MsPacInterface.searchPixels);
         search(agent.x, agent.y);
-        flag = true;
     }
 
     public void update(ConnectedSet cs) {
@@ -291,38 +284,34 @@ public class GameState implements Drawable {
             agent.updatePosition(cs);
         }
         else if (cs.isBlinky()) {
-            isBlinkyEdible = false;
             updateGhost(blinkyPos, cs.x, cs.y);
         }
         else if (cs.isSue()) {
-            isSueEdible = false;
             updateGhost(suePos, cs.x, cs.y);
         }
         else if (cs.isInky()) {
-            isInkyEdible = false;
             updateGhost(inkyPos, cs.x, cs.y);
         }
         else if (cs.isPinky()) {
-            isPinkyEdible = false;
             updateGhost(pinkyPos, cs.x, cs.y);
         }
         else if (cs.isPowerPill()) {
             updateCurrentPowerPill(cs.x, cs.y);
             if(powerPill1Pos == null) {
                 powerPill1Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
-                powerPill1PosD = true;
+                powerPill1PosD = 3;
             }
             else if(powerPill2Pos == null) {
                 powerPill2Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
-                powerPill2PosD = true;
+                powerPill2PosD = 3;
             }
             else if(powerPill3Pos == null) {
                 powerPill3Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
-                powerPill3PosD = true;
+                powerPill3PosD = 3;
             }
             else if(powerPill4Pos == null) {
                 powerPill4Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
-                powerPill4PosD = true;
+                powerPill4PosD = 3;
             }
         }
         else if(cs.isEdible()){

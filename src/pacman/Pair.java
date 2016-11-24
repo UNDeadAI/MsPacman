@@ -1,30 +1,28 @@
 package pacman;
 
-/**
- * Created by oscar on 23/11/16.
- */
-public class Pair<L,R> {
-    public L l;
-    public R r;
 
-    public Pair(L l, R r){
+public class Pair {
+    public int l;
+    public int r;
+
+    public Pair(int l, int r){
         this.l = l;
         this.r = r;
     }
 
-    public L getL() {
+    public int getL() {
         return l;
     }
 
-    public R getR() {
+    public int getR() {
         return r;
     }
 
-    public void setL(L l) {
+    public void setL(int l) {
         this.l = l;
     }
 
-    public void setR(R r) {
+    public void setR(int r) {
         this.r = r;
     }
 }
