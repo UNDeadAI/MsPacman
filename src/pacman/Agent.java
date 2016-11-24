@@ -7,18 +7,18 @@ public class Agent implements PacAgent, Constants {
 
     Vector2d cur, prev, tmp;
 
-    int move, currentDirection;
+    private int move, currentDirection;
 
     int x, y;
     Color color;
 
-    public Agent() {
+    Agent() {
         prev = new Vector2d();
         cur = new Vector2d();
         tmp = new Vector2d();
     }
 
-    public void updatePosition(ConnectedSet cs){
+    void updatePosition(ConnectedSet cs){
         prev.set(x, y);
         x = (cs.x - 3) / 8;
         y = (cs.y - 11) / 8;
@@ -27,10 +27,9 @@ public class Agent implements PacAgent, Constants {
         this.color = cs.c;
     }
 
-    public void setDir(Vector2d prev, Vector2d cur) {
+    void setDir(Vector2d prev, Vector2d cur) {
         tmp.set(cur);
         tmp.subtract(prev);
-        if (tmp.equals(NEUTRAL)) currentDirection = NEUTRAL;
         if (tmp.scalarProduct(vUp) > 0) currentDirection = UP;
         if (tmp.scalarProduct(vRight) > 0) currentDirection = RIGHT;
         if (tmp.scalarProduct(vDown) > 0) currentDirection = DOWN;

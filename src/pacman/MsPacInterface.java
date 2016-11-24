@@ -27,15 +27,15 @@ public class MsPacInterface {
     //public static int top = 167;
 
     //UBUNTU
-    public static int left = 571;
-    public static int top = 311;
+    static int left = 571;
+    static int top = 311;
 
     //Ubuntu videobeam
     //public static int left = 571;
     //public static int top = 339;
 
-    public static int width = 224;
-    public static int height = 248;
+    static int width = 224;
+    static int height = 248;
 
     static int[] pixels = new int[width*height];
     static int[] searchPixels = new int[width*height];
@@ -97,7 +97,8 @@ public class MsPacInterface {
             ms.se.gs.setPath(MsPacInterface.searchPixels);
             ms.analyseComponents(pixels);
             ms.se.gs.initiateSearch();
-            int action = ms.se.gs.agent.move(ms.se.gs);
+            //int action = ms.se.gs.agent.move(ms.se.gs);
+            int action = ms.se.gs.move;
             pm.move(action);
             dc.update(action);
             ms.se.gs.reset();

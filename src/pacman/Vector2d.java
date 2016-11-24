@@ -1,21 +1,21 @@
 package pacman;
 
 public class Vector2d {
-    public double x, y;
-    public int w, dir;
+    double x, y;
+    int w, dir;
 
     public Vector2d() {
         this(0, 0);
     }
 
-    public Vector2d(double x, double y) {
+    Vector2d(double x, double y) {
         this.x = x;
         this.y = y;
         w = 1000;
         dir = 0;
     }
 
-    public Vector2d(Vector2d v) {
+    Vector2d(Vector2d v) {
         x = v.x;
         y = v.y;
         w = v.w;
@@ -29,12 +29,12 @@ public class Vector2d {
         dir = d;
     }
 
-    public void updateVector(Node n){
+    void updateVector(Node n){
         w = n.weight;
         dir = n.dir;
     }
 
-    public void subtract(Vector2d v) {
+    void subtract(Vector2d v) {
         this.x -= v.x;
         this.y -= v.y;
     }
@@ -44,17 +44,17 @@ public class Vector2d {
         y *= fac;
     }
 
-    public double scalarProduct(Vector2d v) {
+    double scalarProduct(Vector2d v) {
         return x * v.x + y * v.y;
     }
 
-    public void set(Vector2d v) {
+    void set(Vector2d v) {
         x = v.x;
         y = v.y;
         w = v.w;
     }
 
-    public void set(double x, double y) {
+    void set(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -63,11 +63,11 @@ public class Vector2d {
         return x + " : " + y;
     }
 
-    public static double sqr(double x) {
+    static double sqr(double x) {
         return x * x;
     }
 
-    public double sqDist(Vector2d v) {
+    double sqDist(Vector2d v) {
         return sqr(x - v.x) + sqr(y - v.y);
     }
 
@@ -82,8 +82,7 @@ public class Vector2d {
 
         Vector2d vector2d = (Vector2d) o;
 
-        if (Double.compare(vector2d.x, x) != 0) return false;
-        return Double.compare(vector2d.y, y) == 0;
+        return Double.compare(vector2d.x, x) == 0 && Double.compare(vector2d.y, y) == 0;
     }
 
     @Override

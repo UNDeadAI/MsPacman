@@ -10,22 +10,6 @@ class Pair implements Comparable<Pair>{
         this.r = r;
     }
 
-    Node getL() {
-        return l;
-    }
-
-    int getR() {
-        return r;
-    }
-
-    void setL(Node l) {
-        this.l = l;
-    }
-
-    void setR(int r) {
-        this.r = r;
-    }
-
     @Override
     public int compareTo(Pair pair)  {
         return (r-pair.r);
