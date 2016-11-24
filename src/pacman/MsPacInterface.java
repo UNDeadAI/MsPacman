@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class MsPacInterface {
     // delay between each screen capture
-    static private int delay = 4;
+    static private int delay = 5;
 
     //VIDEOBEAM Windows
     //public static int left = 528;
@@ -22,6 +22,10 @@ public class MsPacInterface {
     //public static int left = 67;
     //public static int top = 97;
 
+    //ALVARO
+    //public static int left = 288;
+    //public static int top = 167;
+
     //UBUNTU
     public static int left = 571;
     public static int top = 311;
@@ -33,8 +37,8 @@ public class MsPacInterface {
     public static int width = 224;
     public static int height = 248;
 
-    public static int[] pixels = new int[width*height];
-    public static int[] searchPixels = new int[width*height];
+    static int[] pixels = new int[width*height];
+    static int[] searchPixels = new int[width*height];
     private Robot robot;
     private SimpleExtractor se;
     private SimpleDisplay sd;
@@ -43,7 +47,7 @@ public class MsPacInterface {
     static int inky = -16711681;
     static int sue = -18859;
     static int edible = -14408449;
-    public static int pill = -2434305;
+    static int pill = -2434305;
     static int edible2 = -2434305;
 
     public static int blinky = -65536;
@@ -64,7 +68,7 @@ public class MsPacInterface {
         colors.add(pill);
     }
 
-    public MsPacInterface() throws Exception {
+    private MsPacInterface() throws Exception {
         robot = new Robot();
         pixels = new int[width * height];
         se = new SimpleExtractor(width, height);
@@ -72,17 +76,15 @@ public class MsPacInterface {
         new JEasyFrame(sd, "Extracted", true);
     }
 
-    public void analyseComponents(int[] pix) {
-        //se.gs.reset();
+    private void analyseComponents(int[] pix) {
         ArrayList<Drawable> al = se.consume(pix, colors);
         sd.updateObjects(al);
     }
 
-    public void getPixels() {
+    private void getPixels() {
         BufferedImage im = robot.createScreenCapture(new Rectangle(left, top, width, height));
         im.getRGB(0, 0, width, height, pixels, 0, width);
         System.arraycopy(pixels, 0, searchPixels, 0, width*height);
-        //return pixels;
     }
 
     public static void main(String[] args) throws Exception {
@@ -92,8 +94,9 @@ public class MsPacInterface {
 
         while(true) {
             ms.getPixels();
+            ms.se.gs.setPath(MsPacInterface.searchPixels);
             ms.analyseComponents(pixels);
-            ms.se.gs.engage();
+            ms.se.gs.initiateSearch();
             int action = ms.se.gs.agent.move(ms.se.gs);
             pm.move(action);
             dc.update(action);

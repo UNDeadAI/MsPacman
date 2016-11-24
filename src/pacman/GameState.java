@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 
-public class GameState implements Drawable {
+class GameState implements Drawable {
 
     Agent agent;
-    static private int strokeWidth = 5, xPills = 28, yPills = 29;
+    static private int strokeWidth = 4, xPills = 28, yPills = 29;
     static private Stroke stroke =  new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 
     Vector2d closestPill, closestGhost, closestPowerPill, closestEdible = new Vector2d(), blinkyPos = new Vector2d(),
@@ -23,85 +23,66 @@ public class GameState implements Drawable {
     private static int width = MsPacInterface.width;
     private static int height = MsPacInterface.height;
     private static int b = -16777216;
-    private boolean firstTime = true;
 
-    public ArrayList<Pair> nodes = new ArrayList<>();
+    ArrayList<Pair> nodes = new ArrayList<>();
 
-    static int matrix[][] = new int[yPills][xPills]; //positions of the pills, in pixels is i = i*8+3, j = j*8+11
+    private int matrix[][] = new int[yPills][xPills]; //positions of the pills, in pixels is i = i*8+3, j = j*8+11
     static int path[][] = new int[yPills][xPills];
 
-    public GameState() {
+    GameState() {
         agent = new Agent();
         tmp = new Vector2d();
     }
 
-    private int count;
+    void initiateSearch(){ search(agent.x, agent.y); }
 
-    public void setPath(int [] pix){
+    void setPath(int [] pix){
 
-        int pathlimit = 324;
-        if(count > pathlimit) {
-            for (int i = 0; i < yPills; i++)
-                for (int j = 0; j < xPills; j++)
-                    path[i][j] = 0;
-            nodes.clear();
-        }
-        count = 0;
-        int x, y, a;
+        nodes.clear();
         for(int i = 0; i < yPills; i++) {
             for (int j = 0; j < xPills; j++) {
-                x = i*8+11;
-                y = j*8+3;
-                a = x * width + y;
-                if (path[i][j] == 1) {
-                    count++;
-                }
-                else if(validatePos(i, j, pix) && validatePos2(i, j, pix)) {
-                    if(pix[a] == MsPacInterface.pinky)
-                        path[i][j] = 5;
-                    else if(pix[a] == MsPacInterface.blinky)
-                        path[i][j] = 6;
-                    else if(pix[a] == MsPacInterface.sue)
-                        path[i][j] = 7;
-                    else if(pix[a] == MsPacInterface.inky)
-                        path[i][j] = 8;
-                    else if(pix[a] == MsPacInterface.pill)
-                        path[i][j] = 2;
-                    else
-                        path[i][j] = 1;
-                }
-                int cnt = 0;
-                if (path[i][j] == 1) {
-                    if (i > 0 && path[i - 1][j] == 1) {
-                        cnt += 1;
-                    }
-                    if (j > 0 && path[i][j - 1] == 1) {
-                        cnt += 1;
-                    }
-                    if (i < yPills - 1 && path[i + 1][j] == 1) {
-                        cnt += 1;
-                    }
-                    if (j < xPills - 1 && path[i][j + 1] == 1) {
-                        cnt += 1;
-                    }
-                    if (cnt >= 3) {
-                        nodes.add(new Pair(i, j));
-                    }
-                }
+                path[i][j] = 0;
+                if (validatePos(i, j, pix) && validatePos2(i, j, pix) )
+                    path[i][j] = 20;
             }
         }
         for(int i = 0; i < yPills; i++) {
-            for (int j = 0; j < xPills; j++)
-                System.out.print(path[i][j] + " ");
-            System.out.println();
+            for (int j = 0; j < xPills; j++) {
+                int cnt = 0;
+                if (path[i][j] == 1) {
+                    if (i > 0 && path[i - 1][j] == 1)
+                        cnt += 1;
+
+                    if (j > 0 && path[i][j - 1] == 1)
+                        cnt += 1;
+
+                    if (i < yPills - 1 && path[i + 1][j] == 1)
+                        cnt += 1;
+
+                    if (j < xPills - 1 && path[i][j + 1] == 1)
+                        cnt += 1;
+
+                    if (cnt >= 3)
+                        nodes.add(new Pair(i, j));
+                }
+            }
         }
-        System.out.println();
     }
 
     private static int DR[] = {-1, 0, 1, 0};
     private static int DC[] = {0, 1, 0, -1};
 
-    public void search(int tXPos, int tYPos){
+    private void printMatrix(){
+        for(int i = 0; i < yPills; i++) {
+            for (int j = 0; j < xPills; j++)
+                System.out.print(path[i][j] + " ");
+            System.out.println();
+        }
+        System.out.println("\n");
+    }
+
+    private void search(int tXPos, int tYPos){
+        printMatrix();
         for(int i = 0; i < yPills; i++)
             for (int j = 0; j < xPills; j++)
                 matrix[i][j] = 0;
@@ -109,8 +90,7 @@ public class GameState implements Drawable {
         ArrayDeque<Node> queue = new ArrayDeque<>();
         Node u, child;
         Vector2d vector;
-        Hashtable<Node, Node> parent = new Hashtable<>();
-        queue.add(new Node(tYPos, tXPos));
+        queue.add( new Node( tYPos, tXPos ) );
         int tmp1, tmp2;
         while(!queue.isEmpty()){
             u = queue.poll();
@@ -126,7 +106,6 @@ public class GameState implements Drawable {
                         matrix[tmp1][tmp2] = 1;
                         if(path[tmp1][tmp2] >= 1){
                             child = new Node(tmp1, tmp2, u.weight + 1);
-                            parent.put(u,child);
                             if (u.dir == 0)
                                 child.dir = i+1;
                             else
@@ -182,7 +161,7 @@ public class GameState implements Drawable {
         }
     }
 
-    public void updateClosestGhost(){
+    private void updateClosestGhost(){
         if(blinkyPos.w <= pinkyPos.w && blinkyPos.w <= inkyPos.w && blinkyPos.w <= suePos.w)
             closestGhost = blinkyPos;
         else if(blinkyPos.w > pinkyPos.w && pinkyPos.w < inkyPos.w && pinkyPos.w < suePos.w)
@@ -193,10 +172,11 @@ public class GameState implements Drawable {
             closestGhost = suePos;
     }
 
-    private void updateGhost(Vector2d ghost, int x , int y){
+    private void updateGhost(Vector2d ghost, int x , int y, int weight){
         x = (x-3) / 8;
         y = (y-11) / 8;
         ghost.set(x, y);
+        setPathValue(x, y, weight);
     }
 
     private void updateCurrentPowerPill(int x , int y){
@@ -239,8 +219,95 @@ public class GameState implements Drawable {
             closestPill.set(v);
     }
 
-    public void reset(){
-        blinkyPos.set(defaultVector);;
+    void update(ConnectedSet cs) {
+        if (cs.isPacMan())
+            agent.updatePosition(cs);
+
+        else if ( cs.isPill() )
+          setPathValue((cs.x - 3) / 8, (cs.y - 11) / 8, 15);
+
+        else if (cs.isBlinky())
+            updateGhost(blinkyPos, cs.x, cs.y, 300);
+
+        else if (cs.isSue())
+            updateGhost(suePos, cs.x, cs.y, 300);
+
+        else if (cs.isInky())
+            updateGhost(inkyPos, cs.x, cs.y, 300);
+
+        else if (cs.isPinky())
+            updateGhost(pinkyPos, cs.x, cs.y, 300);
+
+        else if (cs.isPowerPill()) {
+            updateCurrentPowerPill(cs.x, cs.y);
+            int x = (cs.x - 3) / 8, y = (cs.y - 11) / 8;
+            setPathValue(x, y, 10);
+
+            if(powerPill1Pos == null) {
+                powerPill1Pos = new Vector2d( x, y );
+                powerPill1PosD = 3;
+            }
+            else if(powerPill2Pos == null) {
+                powerPill2Pos = new Vector2d( x, 7);
+                powerPill2PosD = 3;
+            }
+            else if(powerPill3Pos == null) {
+                powerPill3Pos = new Vector2d( x, y );
+                powerPill3PosD = 3;
+            }
+            else if(powerPill4Pos == null) {
+                powerPill4Pos = new Vector2d( x, y );
+                powerPill4PosD = 3;
+            }
+        }
+        else if(cs.isEdible()){
+            int x = (cs.x - 3) / 8, y = (cs.y - 11) / 8;
+            setPathValue(x, y, 1);
+            if(blinkyEdiblePos == null)
+                blinkyEdiblePos = new Vector2d( x, y );
+            else if(inkyEdiblePos == null)
+                inkyEdiblePos = new Vector2d( x, y );
+            else if (sueEdiblePos == null)
+                sueEdiblePos = new Vector2d( x, y );
+            else if (pinkyEdiblePos == null)
+                pinkyEdiblePos = new Vector2d( x, y );
+        }
+    }
+
+    private void setPathValue(int j , int i, int weight){
+        if ( i < yPills && j < xPills )
+            path[i][j] = weight;
+    }
+
+    private void updateClosestEdible() {
+        int min = 1000;
+        if (blinkyEdiblePos != null) {
+            if (blinkyEdiblePos.w <= min) {
+                min = blinkyEdiblePos.w;
+                closestEdible = blinkyEdiblePos;
+            }
+        }
+        if (inkyEdiblePos != null) {
+            if (inkyEdiblePos.w <= min) {
+                min = inkyEdiblePos.w;
+                closestEdible = inkyEdiblePos;
+            }
+        }
+        if (sueEdiblePos != null) {
+            if (sueEdiblePos.w <= min) {
+                min = sueEdiblePos.w;
+                closestEdible = sueEdiblePos;
+            }
+        }
+        if (pinkyEdiblePos != null) {
+            if (pinkyEdiblePos.w <= min) {
+                closestEdible = pinkyEdiblePos;
+            }
+        }
+    }
+
+    void reset(){
+        blinkyPos.set(defaultVector);
         pinkyPos.set(defaultVector);
         inkyPos.set(defaultVector);
         suePos.set(defaultVector);
@@ -274,90 +341,9 @@ public class GameState implements Drawable {
             powerPill4Pos = null;
     }
 
-    public void engage(){
-        setPath(MsPacInterface.searchPixels);
-        search(agent.x, agent.y);
-    }
-
-    public void update(ConnectedSet cs) {
-        if (cs.isPacMan()) {
-            agent.updatePosition(cs);
-        }
-        else if (cs.isBlinky()) {
-            updateGhost(blinkyPos, cs.x, cs.y);
-        }
-        else if (cs.isSue()) {
-            updateGhost(suePos, cs.x, cs.y);
-        }
-        else if (cs.isInky()) {
-            updateGhost(inkyPos, cs.x, cs.y);
-        }
-        else if (cs.isPinky()) {
-            updateGhost(pinkyPos, cs.x, cs.y);
-        }
-        else if (cs.isPowerPill()) {
-            updateCurrentPowerPill(cs.x, cs.y);
-            if(powerPill1Pos == null) {
-                powerPill1Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
-                powerPill1PosD = 3;
-            }
-            else if(powerPill2Pos == null) {
-                powerPill2Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
-                powerPill2PosD = 3;
-            }
-            else if(powerPill3Pos == null) {
-                powerPill3Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
-                powerPill3PosD = 3;
-            }
-            else if(powerPill4Pos == null) {
-                powerPill4Pos = new Vector2d((cs.x - 3) / 8, (cs.y - 11) / 8);
-                powerPill4PosD = 3;
-            }
-        }
-        else if(cs.isEdible()){
-            if(blinkyEdiblePos == null)
-                blinkyEdiblePos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
-            else if(inkyEdiblePos == null)
-                inkyEdiblePos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
-            else if (sueEdiblePos == null)
-                sueEdiblePos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
-            else if (pinkyEdiblePos == null)
-                pinkyEdiblePos = new Vector2d((cs.x-3)/8, (cs.y-11)/8);
-        }
-    }
-
-    public void updateClosestEdible() {
-        int min = 1000;
-        if (blinkyEdiblePos != null) {
-            if (blinkyEdiblePos.w <= min) {
-                min = blinkyEdiblePos.w;
-                closestEdible = blinkyEdiblePos;
-            }
-        }
-        if (inkyEdiblePos != null) {
-            if (inkyEdiblePos.w <= min) {
-                min = inkyEdiblePos.w;
-                closestEdible = inkyEdiblePos;
-            }
-        }
-        if (sueEdiblePos != null) {
-            if (sueEdiblePos.w <= min) {
-                min = sueEdiblePos.w;
-                closestEdible = sueEdiblePos;
-            }
-        }
-        if (pinkyEdiblePos != null) {
-            if (pinkyEdiblePos.w <= min) {
-                min = pinkyEdiblePos.w;
-                closestEdible = pinkyEdiblePos;
-            }
-        }
-    }
-
-    public void setCurrentObjective(Vector2d v){
-        if(v != null) {
+    void setCurrentObjective(Vector2d v){
+        if(v != null)
             currentObjective.set(v.x, v.y);
-        }
     }
 
     public void draw(Graphics gg, int w, int h) {
@@ -373,7 +359,7 @@ public class GameState implements Drawable {
     private static boolean validatePos2(int x, int y, int[] pix){
         x = x*8+11;
         y = y*8+3;
-        int a = x*width + y;
+        int a = x * width + y;
         if(pix[a] != b && (pix[a] == MsPacInterface.blinky || (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a]))))
             return false;
         x = x + dw + 2;
@@ -407,7 +393,7 @@ public class GameState implements Drawable {
     private static boolean validatePos(int x, int y, int[] pix){
         x = x*8+12;
         y = y*8+4;
-        int a = x*width + y;
+        int a = x * width + y;
         if(pix[a] != b && (pix[a] == MsPacInterface.blinky || !MsPacInterface.colors.contains(pix[a])))
             return false;
         x = x + dw + 1;

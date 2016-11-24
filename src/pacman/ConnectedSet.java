@@ -2,14 +2,14 @@ package pacman;
 
 import java.awt.*;
 
-public class ConnectedSet implements Drawable {
-    public int x, y;
-    public int width, height;
-    public int fg, xMin, xMax, yMin, yMax, pTot, tot;
-    public Color c;
+class ConnectedSet implements Drawable {
+    int x, y;
+    private int width, height;
+    private int fg, xMin, xMax, yMin, yMax, pTot;
+    Color c;
     private boolean valid = false;
 
-    public ConnectedSet(int x, int y, int fg) {
+    ConnectedSet(int x, int y, int fg) {
         this.x = x;
         this.y = y;
         xMin = xMax = x;
@@ -18,26 +18,22 @@ public class ConnectedSet implements Drawable {
         c = new Color((fg & 0xFF0000) >> 16, (fg & 0xFF00) >> 8, (fg & 0xFF));
     }
 
-    public void add(int px, int py) {
+    void add(int px, int py) {
         xMin = Math.min(px, xMin);
         xMax = Math.max(px, xMax);
         yMin = Math.min(py, yMin);
         yMax = Math.max(py, yMax);
         pTot += (1 + px - x) * (1 + py - y);
-        tot++;
         valid = false;
     }
 
     public void draw(Graphics g, int w, int h) {
         validate();
         g.setColor(c);
-        if(isPowerPill() || isPill())
-            g.drawRect(xMin, yMin, width+1, height+1);
-        else
-            g.fillRect(xMin, yMin, width, height);
+        g.fillRect(xMin, yMin, width, height);
     }
 
-    public void validate() {
+    private void validate() {
         if (!valid) {
             width = xMax - xMin;
             height = yMax - yMin;
@@ -47,51 +43,39 @@ public class ConnectedSet implements Drawable {
         }
     }
 
-    public boolean isPinky(){
+    boolean isPinky(){
         validate();
-        if(width >= 10 && height >= 10)
-            if(fg == MsPacInterface.pinky)
-                return true;
-            return false;
+        return width >= 10 && height >= 10 && fg == MsPacInterface.pinky;
     }
 
-    public boolean isBlinky() {
+    boolean isBlinky() {
         validate();
-        if(width >= 10 && height >= 10)
-            if(fg == MsPacInterface.blinky)
-                return true;
-            return false;
+        return width >= 10 && height >= 10 && fg == MsPacInterface.blinky;
     }
 
-    public boolean isInky() {
+    boolean isInky() {
         validate();
-        if(width >= 10 && height >= 10)
-            if(fg == MsPacInterface.inky)
-                return true;
-            return false;
+        return width >= 10 && height >= 10 && fg == MsPacInterface.inky;
     }
 
-    public boolean isSue() {
+    boolean isSue() {
         validate();
-        if(width >= 10 && height >= 10)
-            if(fg == MsPacInterface.sue)
-                return true;
-        return false;
+        return width >= 10 && height >= 10 && fg == MsPacInterface.sue;
     }
 
-    public boolean isEdible() {
+    boolean isEdible() {
         validate();
         return MsPacInterface.edible == fg && width >= 10 && height >= 10;
     }
 
-    public boolean isPacMan() {
+    boolean isPacMan() {
         validate();
         return fg == MsPacInterface.pacMan && width >= 10 && height >= 10;
     }
 
-    public boolean isPill() {
+    boolean isPill() {
         validate();
-        return width == 1 && height == 1 && fg == MsPacInterface.pill;
+        return width <= 3 && height <= 3 && fg == MsPacInterface.pill;
     }
 
     public boolean isCherry() {
@@ -99,7 +83,7 @@ public class ConnectedSet implements Drawable {
         return MsPacInterface.blinky == fg && width == 5 && height == 5;
     }
 
-    public boolean isPowerPill() {
+    boolean isPowerPill() {
         validate();
         return width == 7 && height == 7 && fg == MsPacInterface.pill;
     }
