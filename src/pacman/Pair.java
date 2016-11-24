@@ -1,28 +1,33 @@
 package pacman;
 
 
-public class Pair {
-    public int l;
-    public int r;
+class Pair implements Comparable<Pair>{
+    Node l;
+    int r;
 
-    public Pair(int l, int r){
+    Pair(Node l, int r){
         this.l = l;
         this.r = r;
     }
 
-    public int getL() {
+    Node getL() {
         return l;
     }
 
-    public int getR() {
+    int getR() {
         return r;
     }
 
-    public void setL(int l) {
+    void setL(Node l) {
         this.l = l;
     }
 
-    public void setR(int r) {
+    void setR(int r) {
         this.r = r;
+    }
+
+    @Override
+    public int compareTo(Pair pair)  {
+        return (r-pair.r);
     }
 }

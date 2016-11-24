@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.PriorityQueue;
 
 
 class GameState implements Drawable {
@@ -46,7 +47,7 @@ class GameState implements Drawable {
                     path[i][j] = 20;
             }
         }
-        for(int i = 0; i < yPills; i++) {
+        /*for(int i = 0; i < yPills; i++) {
             for (int j = 0; j < xPills; j++) {
                 int cnt = 0;
                 if (path[i][j] == 1) {
@@ -66,7 +67,7 @@ class GameState implements Drawable {
                         nodes.add(new Pair(i, j));
                 }
             }
-        }
+        }*/
     }
 
     private static int DR[] = {-1, 0, 1, 0};
@@ -82,21 +83,22 @@ class GameState implements Drawable {
     }
 
     private void search(int tXPos, int tYPos){
-        printMatrix();
+        //printMatrix();
         for(int i = 0; i < yPills; i++)
             for (int j = 0; j < xPills; j++)
                 matrix[i][j] = 0;
         matrix[tYPos] [tXPos] = 1;
-        ArrayDeque<Node> queue = new ArrayDeque<>();
-        Node u, child;
+        PriorityQueue<Pair> queue = new PriorityQueue<>();
+        Pair u, child;
         Vector2d vector;
-        queue.add( new Node( tYPos, tXPos ) );
+        queue.add( new Pair(new Node( tYPos, tXPos ), path[tYPos][tXPos]));
         int tmp1, tmp2;
-        while(!queue.isEmpty()){
+        int depth = 0;
+        while(!queue.isEmpty() && depth < 10){
             u = queue.poll();
             for(int i = 0; i < 4; i++){
-                tmp1 = DR[i] + u.x;
-                tmp2 = DC[i] + u.y;
+                tmp1 = DR[i] + u.getL().x;
+                tmp2 = DC[i] + u.getL().y;
                 if(tmp1 < yPills && tmp1 >= 0){
                     if(tmp2 >= xPills)
                         tmp2 = 0;
@@ -105,13 +107,13 @@ class GameState implements Drawable {
                     if(matrix[tmp1][tmp2] == 0){
                         matrix[tmp1][tmp2] = 1;
                         if(path[tmp1][tmp2] >= 1){
-                            child = new Node(tmp1, tmp2, u.weight + 1);
-                            if (u.dir == 0)
-                                child.dir = i+1;
+                            child = new Pair(new Node(tmp1, tmp2, u.getL().weight + 1),u.getR()+path[tmp1][tmp2]);
+                            if (u.getL().dir == 0)
+                                child.getL().dir = i+1;
                             else
-                                child.dir = u.dir;
+                                child.getL().dir = u.getL().dir;
                             queue.add(child);
-                            vector = new Vector2d(tmp2, tmp1, child.weight, child.dir);
+                            vector = new Vector2d(tmp2, tmp1, child.getL().weight, child.getL().dir);
                             if (inkyPos.equals(vector)) {
                                 inkyPos.w = vector.w;
                                 updateClosestGhost();
@@ -125,35 +127,37 @@ class GameState implements Drawable {
                                 pinkyPos.w = vector.w;
                                 updateClosestGhost();
                             } else if (powerPill1Pos != null && powerPill1Pos.equals(vector)) {
-                                powerPill1Pos.updateVector(child);
+                                powerPill1Pos.updateVector(child.getL());
                                 updateClosestPowerPill();
                             }else if (powerPill2Pos != null && powerPill2Pos.equals(vector)) {
-                                powerPill2Pos.updateVector(child);
+                                powerPill2Pos.updateVector(child.getL());
                                 updateClosestPowerPill();
                             }else if (powerPill3Pos != null && powerPill3Pos.equals(vector)) {
-                                powerPill3Pos.updateVector(child);
+                                powerPill3Pos.updateVector(child.getL());
                                 updateClosestPowerPill();
                             }else if (powerPill4Pos != null && powerPill4Pos.equals(vector)) {
-                                powerPill4Pos.updateVector(child);
+                                powerPill4Pos.updateVector(child.getL());
                                 updateClosestPowerPill();
                             } else if (MsPacInterface.searchPixels[(tmp1*8+11)*width + (tmp2*8+3)] == MsPacInterface.pill) {
                                 updateClosestPill(vector);
                             } else if (blinkyEdiblePos != null && blinkyEdiblePos.equals(vector)){
-                                blinkyEdiblePos.updateVector(child);
+                                blinkyEdiblePos.updateVector(child.getL());
                                 updateClosestEdible();
                             }
                             else if (inkyEdiblePos != null && inkyEdiblePos.equals(vector)){
-                                inkyEdiblePos.updateVector(child);
+                                inkyEdiblePos.updateVector(child.getL());
                                 updateClosestEdible();
                             }
                             else if (sueEdiblePos != null && sueEdiblePos.equals(vector)){
-                                sueEdiblePos.updateVector(child);
+                                sueEdiblePos.updateVector(child.getL());
                                 updateClosestEdible();
                             }
                             else if (pinkyEdiblePos != null && pinkyEdiblePos.equals(vector)){
-                                pinkyEdiblePos.updateVector(child);
+                                pinkyEdiblePos.updateVector(child.getL());
                                 updateClosestEdible();
                             }
+                            if(child.getL().weight > depth)
+                                depth = child.getL().weight;
                         }
                     }
                 }
